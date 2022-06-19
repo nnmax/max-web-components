@@ -9,7 +9,7 @@
     "build": "rm -rf ./build && babel src --out-dir build --extensions \".ts\"",
     "start": "yarn storybook",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook --output-dir ./docs"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.7",
