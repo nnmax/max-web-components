@@ -1,6 +1,60 @@
 const ANIMATION_DURATION = '550ms'
 
+export const enterKeyframeName = 'enterKeyframe'
+export const exitKeyframeName = 'exitKeyframe'
+const pulsateKeyframeName = 'pulsateKeyframe'
+
+const enterKeyframe = `
+  @keyframes ${enterKeyframeName} {
+    0% {
+      transform: scale(0);
+      opacity: 0.1;
+    }
+
+    100% {
+      transform: scale(1)
+      opacity: 0.3;
+    }
+  }
+`
+
+const exitKeyframe = `
+  @keyframes ${exitKeyframeName} {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+`
+
+const pulsateKeyframe = `
+  @keyframes ${pulsateKeyframeName} {
+    0% {
+      transform: scale(0.9);
+    }
+
+    50% {
+      transform: scale(0.8);
+    }
+
+    100% {
+      transform: scale(0.9);
+    }
+  }
+`
+
 export default `
+  ${enterKeyframe}
+  ${exitKeyframe}
+  ${pulsateKeyframe}
+
+  :host {
+    display: inline-flex;
+  }
+
   .MaxButton-root {
     position: relative;
     display: inline-flex;
@@ -97,30 +151,36 @@ export default `
     border-radius: inherit;
   }
 
-  @keyframes enter {
-    0% {
-      opacity: 0.1;
-      transform: scale(0);
-    }
-
-    60% {
-      opacity: 0.2;
-      transform: scale(1);
-    }
-
-    100% {
-      opacity: 0;
-    }
+  .MaxRipple-root > .MaxRipple-child {
+    position: absolute;
+    display: block;
+    opacity: 0;
   }
 
-  .MaxRipple-root .MaxRipple-child {
+  .MaxRipple-root > .MaxRipple-child.enter {
+    opacity: 0.3;
+    transform: scale(1);
+    animation: ${enterKeyframeName} ${ANIMATION_DURATION} ease-in-out;
+  }
+
+  .MaxRipple-root > .MaxRipple-child > .MaxRipple-child-child {
+    opacity: 1;
     display: block;
-    position: absolute;
     width: 100%;
     height: 100%;
-    background-color: currentColor;
-    opacity: 1;
     border-radius: 50%;
-    animation: enter ${ANIMATION_DURATION} ease-in-out;
+    background-color: currentColor;
+  }
+
+  .MaxRipple-root > .MaxRipple-child.exit > .MaxRipple-child-child {
+    opacity: 0;
+    animation: ${exitKeyframeName} ${ANIMATION_DURATION} ease-in-out;
+  }
+
+  .MaxRipple-root > .MaxRipple-child.pulsate > .MaxRipple-child-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: ${pulsateKeyframeName} 2500ms ease-in-out 200ms infinite;
   }
 `;

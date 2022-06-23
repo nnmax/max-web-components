@@ -8,7 +8,7 @@ export default {
 
 export const VariantButton = () =>
   html`
-    <max-button variant="text" style="margin-right: 8px; top: 100px; left: 100px; position: absolute;">
+    <max-button variant="text" style="margin-right: 8px;">
       Text Button
     </max-button>
     <max-button variant="contained" style="margin-right: 8px;">
