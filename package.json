@@ -6,7 +6,7 @@
   "author": "maxin <maxin@growingio.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf ./build && babel src --out-dir build --extensions \".ts\"",
+    "build": "rm -rf ./build && babel src --out-dir build --extensions \".ts\" && yarn build-storybook",
     "start": "yarn storybook",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook --output-dir ./docs"
