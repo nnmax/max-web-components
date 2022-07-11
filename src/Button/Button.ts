@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from "../utils/classNames";
 import style, { exitKeyframeName } from './Button.style'
 
 export interface MaxButtonProps {
@@ -9,7 +9,7 @@ export interface MaxButtonProps {
   type?: "button" | "submit" | "reset";
 }
 
-class MaxButton extends HTMLElement {
+export default class MaxButton extends HTMLElement {
 
   private readonly rippleRoot: HTMLSpanElement | null
   private readonly rippleChildren: HTMLSpanElement[] = []
@@ -17,8 +17,8 @@ class MaxButton extends HTMLElement {
   constructor() {
     super();
 
-    const color = this.getAttribute("color");
-    const variant = this.getAttribute("variant");
+    const color = this.getAttribute("color") || 'primary';
+    const variant = this.getAttribute("variant") || 'contained';
     const disabled = this.getAttribute("disabled") !== null;
     const type = this.getAttribute("type") || "button";
 
@@ -39,7 +39,7 @@ class MaxButton extends HTMLElement {
         tabindex=${tabindex}
       >
         <slot></slot>
-        ${!disabled && `<span class="MaxRipple-root"></span>`}
+        ${disabled ? '' :  `<span class="MaxRipple-root"></span>`}
       </button>
     `;
     
@@ -100,7 +100,7 @@ class MaxButton extends HTMLElement {
     let isFocusVisible = false
 
     if (event instanceof FocusEvent) {
-      const button = this.shadowRoot!.querySelector('.MaxButton-root') as HTMLButtonElement
+      const button = this.shadowRoot.querySelector('.MaxButton-root') as HTMLButtonElement
       if (!button || !button.matches(':focus-visible')) {
         return
       }
@@ -129,7 +129,7 @@ class MaxButton extends HTMLElement {
     if (isFocusVisible) {
       rippleChild.classList.add('pulsate')
     }
-    this.rippleRoot!.appendChild(rippleChild)
+    this.rippleRoot.appendChild(rippleChild)
   }
 
   private stopRipple() {
@@ -145,5 +145,3 @@ class MaxButton extends HTMLElement {
     rippleChild.classList.add('exit')
   }
 }
-
-window.customElements.define("max-button", MaxButton);

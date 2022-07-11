@@ -6,26 +6,24 @@
   "author": "maxin <maxin@growingio.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf ./build && babel src --out-dir build --extensions \".ts\" && yarn build-storybook",
-    "start": "yarn storybook",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook --output-dir ./docs"
+    "build": "rollup --config rollup.config.js",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.7",
     "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.18.6",
     "@babel/preset-typescript": "^7.16.7",
-    "@storybook/addon-actions": "^6.4.14",
-    "@storybook/addon-essentials": "^6.4.14",
-    "@storybook/addon-links": "^6.4.14",
-    "@storybook/web-components": "^6.4.14",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@types/jest": "^28.1.4",
     "babel-loader": "^8.2.3",
+    "jest": "^28.1.2",
+    "jest-environment-jsdom": "^28.1.2",
+    "rollup": "^2.75.7",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "tslib": "^2.4.0",
     "typescript": "^4.5.4"
-  },
-  "dependencies": {
-    "classnames": "^2.3.1",
-    "lit": "^2.1.1",
-    "lit-html": "^2.1.1"
   },
   "packageManager": "yarn@3.2.1"
 }

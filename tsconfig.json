@@ -1,22 +1,11 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "lib": ["ESNext", "DOM"],
-    "target": "ES2015",
-    "strict": true,
-    "module": "CommonJS",
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,
-    "declarationMap": true,
-    "downlevelIteration": true,
-    "newLine": "LF",
-    "removeComments": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
+    "target": "es6",
+    "moduleResolution": "node",
+    "types": ["jest"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "esm", "cjs"]
 }
