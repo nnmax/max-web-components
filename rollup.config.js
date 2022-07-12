@@ -4,7 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 const OUTPUT_DIR = "es";
 
 export default defineConfig({
-  input: "src/index.ts",
+  input: ["src/index.ts", "src/utils/PubSub.ts"],
   output: {
     dir: OUTPUT_DIR,
     format: "es",
