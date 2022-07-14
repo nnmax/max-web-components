@@ -22,6 +22,8 @@
 
     const addTodoEventName = 'add_todo_list'
 
+    let globalId = 0
+
     class TodoListForm extends HTMLElement {
       constructor() {
         super()
@@ -42,7 +44,7 @@
             }
           </style>
           <input type="text" placeholder="请输入待办事项" />
-          <max-button>添加</max-button>
+          <max-button variant="outlined">添加</max-button>
         `
       }
 
@@ -77,7 +79,7 @@
             }
           </style>
           <ul>
-
+            
           </ul>
         `
       }
@@ -89,7 +91,14 @@
       handleAddTodo(value) {
         const ulEl = this.shadowRoot.querySelector('ul')
         const liEl = document.createElement('li')
-        liEl.innerText = value
+        const checkboxEl = document.createElement('input')
+        const labelEl = document.createElement('label')
+        checkboxEl.type = 'checkbox'
+        checkboxEl.id = `${globalId++}`
+        labelEl.htmlFor = checkboxEl.id
+        labelEl.innerText = value
+        liEl.appendChild(checkboxEl)
+        liEl.appendChild(labelEl)
         ulEl.appendChild(liEl)
       }
     }
@@ -97,7 +106,6 @@
     window.customElements.define('todo-list-form', TodoListForm)
     window.customElements.define('todo-list', TodoList)
 
-    
   </script>
 </head>
 
