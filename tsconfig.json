@@ -2,10 +2,12 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "declaration": true,
-    "target": "es6",
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "types": ["jest"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/Button/Button.js"],
   "exclude": ["node_modules", "esm", "cjs"]
 }
