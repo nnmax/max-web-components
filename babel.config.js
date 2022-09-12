@@ -1,8 +1,8 @@
 module.exports = {
   presets: [
     ['@babel/preset-env', {
-      modules: 'cjs'
+      modules: 'cjs',
     }],
-    '@babel/preset-typescript'
+    '@babel/preset-typescript',
   ],
-}
+};

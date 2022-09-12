@@ -1,25 +1,25 @@
 const PubSub = {
-  eventMap: new Map<string, Array<Function>>,
+  eventMap: new Map<string, Array<() => void>>(),
 
-  subscribe: function(eventName, fn) {
+  subscribe(eventName, fn) {
     if (this.eventMap.has(eventName)) {
-      this.eventMap.get(eventName).push(fn)
-      return
+      this.eventMap.get(eventName).push(fn);
+      return;
     }
-    this.eventMap.set(eventName, [fn])
+    this.eventMap.set(eventName, [fn]);
   },
 
-  unsubscribe: function(eventName, fn) {
+  unsubscribe(eventName, fn) {
     if (this.eventMap.has(eventName)) {
-      this.eventMap.set(eventName, this.eventMap.get(eventName).filter(f => f !== fn))
+      this.eventMap.set(eventName, this.eventMap.get(eventName).filter((f) => f !== fn));
     }
   },
 
-  publish: function(eventName, data) {
+  publish(eventName, data) {
     if (this.eventMap.has(eventName)) {
-      this.eventMap.get(eventName).forEach(functions => functions(data))
+      this.eventMap.get(eventName).forEach((functions) => functions(data));
     }
-  }
-}
+  },
+};
 
-export default PubSub
+export default PubSub;
