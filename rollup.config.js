@@ -1,5 +1,7 @@
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
+import { importAssertionsPlugin } from 'rollup-plugin-import-assert';
+import { importAssertions } from 'acorn-import-assertions';
 
 const OUTPUT_DIR = 'es';
 
@@ -13,16 +15,7 @@ export default defineConfig([{
     typescript({
       compilerOptions: { outDir: OUTPUT_DIR, declarationDir: OUTPUT_DIR },
     }),
+    importAssertionsPlugin(),
   ],
-}, {
-  input: ['src/index.ts', 'src/utils/PubSub.ts'],
-  output: {
-    dir: 'docs',
-    format: 'es',
-  },
-  plugins: [
-    typescript({
-      compilerOptions: { declaration: false },
-    }),
-  ],
+  acornInjectPlugins: [importAssertions],
 }]);
