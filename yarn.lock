@@ -2458,6 +2458,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn-import-assertions@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "acorn-import-assertions@npm:1.8.0"
+  peerDependencies:
+    acorn: ^8
+  checksum: 5c4cf7c850102ba7ae0eeae0deb40fb3158c8ca5ff15c0bca43b5c47e307a1de3d8ef761788f881343680ea374631ae9e9615ba8876fee5268dbe068c98bcba6
+  languageName: node
+  linkType: hard
+
 "acorn-jsx@npm:^5.3.2":
   version: 5.3.2
   resolution: "acorn-jsx@npm:5.3.2"
@@ -5424,12 +5433,14 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.18.10
     "@babel/core": ^7.19.0
+    "@babel/plugin-syntax-import-assertions": ^7.18.6
     "@babel/preset-env": ^7.19.0
     "@babel/preset-typescript": ^7.18.6
     "@rollup/plugin-typescript": ^8.5.0
     "@types/jest": ^29.0.1
     "@typescript-eslint/eslint-plugin": ^5.36.2
     "@typescript-eslint/parser": ^5.36.2
+    acorn-import-assertions: ^1.8.0
     babel-loader: ^8.2.5
     eslint: ^8.23.1
     eslint-config-airbnb-base: latest
@@ -5437,6 +5448,7 @@ __metadata:
     jest: ^29.0.3
     jest-environment-jsdom: ^29.0.3
     rollup: ^2.79.0
+    rollup-plugin-import-assert: ^2.1.0
     ts-jest: ^29.0.0
     ts-node: ^10.9.1
     tslib: ^2.4.0
@@ -6240,6 +6252,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-import-assert@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "rollup-plugin-import-assert@npm:2.1.0"
+  dependencies:
+    string-to-template-literal: ^0.2.2
+  peerDependencies:
+    acorn-import-assertions: ^1.7.1
+    rollup: ^2.0.0
+  checksum: 7cc3a9bad8857aa855eb5ad1336725564536570e14c1406863c9abd5cf4a3d04bbe1c220e55267072e355fac55b3d77673d5f210275cfc38615dd9af80065991
+  languageName: node
+  linkType: hard
+
 "rollup@npm:^2.79.0":
   version: 2.79.0
   resolution: "rollup@npm:2.79.0"
@@ -6481,6 +6505,13 @@ __metadata:
     char-regex: ^1.0.2
     strip-ansi: ^6.0.0
   checksum: ce85533ef5113fcb7e522bcf9e62cb33871aa99b3729cec5595f4447f660b0cefd542ca6df4150c97a677d58b0cb727a3fe09ac1de94071d05526c73579bf505
+  languageName: node
+  linkType: hard
+
+"string-to-template-literal@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "string-to-template-literal@npm:0.2.2"
+  checksum: b38defb1acc85f13bf47b684ae2e73f5f689852fbc40d229e2db7870f1eddceb416328f4c8a5668aac068184d7e6bafb53d35420023f41492a3538ca03ac47a2
   languageName: node
   linkType: hard
 

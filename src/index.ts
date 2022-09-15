@@ -1,7 +1,3 @@
-import MaxButton, { MaxButtonProps } from "./Button";
+import MaxButton from './Button';
 
-window.customElements.define("max-button", MaxButton);
-
-export {
-  MaxButtonProps
-}
+window.customElements.define('max-button', MaxButton);
