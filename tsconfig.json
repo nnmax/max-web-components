@@ -8,6 +8,6 @@
     "moduleResolution": "node",
     "types": ["jest"]
   },
-  "include": ["src/**/*.ts", "src/Button/Button.js"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "esm", "cjs"]
 }

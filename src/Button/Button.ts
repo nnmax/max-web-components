@@ -1,5 +1,5 @@
-import classNames from '../utils/classNames';
-import styles from './button.style.css' assert { type: 'css' };
+import classNames from '../utils/classNames'
+import styles from './button.style.css' assert { type: 'css' }
 
 export interface MaxButtonProps {
   variant?: 'text' | 'contained' | 'outlined';
@@ -10,19 +10,19 @@ export interface MaxButtonProps {
 }
 
 export default class MaxButton extends HTMLElement {
-  private readonly rippleRoot: HTMLSpanElement | null;
+  private readonly rippleRoot: HTMLSpanElement | null
 
-  private readonly rippleChildren: HTMLSpanElement[] = [];
+  private readonly rippleChildren: HTMLSpanElement[] = []
 
   constructor() {
-    super();
+    super()
 
-    const color = this.getAttribute('color') || 'primary';
-    const variant = this.getAttribute('variant') || 'contained';
-    const disabled = this.getAttribute('disabled') !== null;
-    const type = this.getAttribute('type') || 'button';
+    const color = this.getAttribute('color') || 'primary'
+    const variant = this.getAttribute('variant') || 'contained'
+    const disabled = this.getAttribute('disabled') !== null
+    const type = this.getAttribute('type') || 'button'
 
-    const tabindex = disabled ? -1 : 0;
+    const tabindex = disabled ? -1 : 0
 
     const html = `
       <button
@@ -38,90 +38,92 @@ export default class MaxButton extends HTMLElement {
         <slot></slot>
         ${disabled ? '' : '<span class="MaxRipple-root"></span>'}
       </button>
-    `;
+    `
 
-    const shadowRoot = this.attachShadow({ mode: 'open' });
-    shadowRoot.innerHTML = html;
+    const shadowRoot = this.attachShadow({ mode: 'open' })
+    shadowRoot.innerHTML = html
 
     // @ts-expect-error type of `styles` is CSSStyleSheet
-    this.shadowRoot.adoptedStyleSheets = [styles];
+    this.shadowRoot.adoptedStyleSheets = [styles]
 
-    this.rippleRoot = shadowRoot.querySelector('.MaxButton-root > .MaxRipple-root');
+    this.rippleRoot = shadowRoot.querySelector('.MaxButton-root > .MaxRipple-root')
 
     if (disabled) {
-      this.style.pointerEvents = 'none';
+      this.style.pointerEvents = 'none'
     }
 
     if (this.rippleRoot) {
-      this.addEventListener('mousedown', this.startRipple);
-      this.addEventListener('focus', this.startRipple);
-      this.addEventListener('mouseup', this.stopRipple);
-      this.addEventListener('mouseleave', this.stopRipple);
-      this.addEventListener('blur', this.stopRipple);
+      this.addEventListener('mousedown', this.startRipple)
+      this.addEventListener('focus', this.startRipple)
+      this.addEventListener('mouseup', this.stopRipple)
+      this.addEventListener('mouseleave', this.stopRipple)
+      this.addEventListener('blur', this.stopRipple)
     }
   }
 
   private createRippleChild(
     rect: Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>,
   ) {
+    // eslint-disable-next-line padded-blocks
     /**
      * 创建以下结构：
      * <span class="MaxRipple-child enter">
      *   <span class="MaxRipple-child-child"></span>
      * </span>
      */
-    const rippleChild = document.createElement('span');
-    rippleChild.classList.add('MaxRipple-child', 'enter');
-    const rippleChildChild = document.createElement('span');
-    rippleChildChild.classList.add('MaxRipple-child-child');
-    rippleChild.appendChild(rippleChildChild);
+    const rippleChild = document.createElement('span')
+    rippleChild.classList.add('MaxRipple-child', 'enter')
+    const rippleChildChild = document.createElement('span')
+    rippleChildChild.classList.add('MaxRipple-child-child')
+    rippleChild.appendChild(rippleChildChild)
 
     const {
       height, left, top, width,
-    } = rect;
-    if (height) rippleChild.style.height = rect.height;
-    if (width) rippleChild.style.width = rect.width;
-    if (top) rippleChild.style.top = rect.top;
-    if (left) rippleChild.style.left = rect.left;
+    } = rect
+    if (height) rippleChild.style.height = rect.height
+    if (width) rippleChild.style.width = rect.width
+    if (top) rippleChild.style.top = rect.top
+    if (left) rippleChild.style.left = rect.left
 
-    this.rippleChildren.push(rippleChild);
+    this.rippleChildren.push(rippleChild)
 
-    return rippleChild;
+    return rippleChild
   }
 
   private startRipple(event: MouseEvent | FocusEvent) {
     const {
       left, top, width, height,
-    } = this.getBoundingClientRect();
+    } = this.getBoundingClientRect()
 
     let clientX = 0; let
-      clientY = 0;
+      clientY = 0
+
     /**
      * 涟漪效果是否从节点的中心扩散，否则从鼠标点击的位置开始扩散
      * 使用 Tab 键移动焦点的时候，从节点的中心扩散
      */
-    let center = false;
-    let isFocusVisible = false;
+    let center = false
+    let isFocusVisible = false
 
     if (event instanceof FocusEvent) {
-      const button = this.shadowRoot.querySelector('.MaxButton-root') as HTMLButtonElement;
+      const button = this.shadowRoot.querySelector('.MaxButton-root') as HTMLButtonElement
       if (!button || !button.matches(':focus-visible')) {
-        return;
+        return
       }
-      center = true;
-      isFocusVisible = true;
+      center = true
+      isFocusVisible = true
     } else {
-      clientX = event.clientX;
-      clientY = event.clientY;
+      clientX = event.clientX
+      clientY = event.clientY
     }
 
-    const rippleX = center ? width / 2 : clientX - left;
-    const rippleY = center ? height / 2 : clientY - top;
+    const rippleX = center ? width / 2 : clientX - left
+    const rippleY = center ? height / 2 : clientY - top
 
     // 从鼠标点击的中心位置，构造一个能正好包围当前元素的圆
-    const sizeX = Math.max(width - rippleX, rippleX) * 2;
-    const sizeY = Math.max(height - rippleY, rippleY) * 2;
-    const diagonal = Math.sqrt(sizeX ** 2 + sizeY ** 2);
+    const sizeX = Math.max(width - rippleX, rippleX) * 2
+    const sizeY = Math.max(height - rippleY, rippleY) * 2
+    const diagonal = Math.sqrt(sizeX ** 2 + sizeY ** 2)
 
     const rippleChild = this.createRippleChild(
       {
@@ -130,23 +132,23 @@ export default class MaxButton extends HTMLElement {
         left: `${-diagonal / 2 + rippleX}px`,
         top: `${-diagonal / 2 + rippleY}px`,
       },
-    );
+    )
     if (isFocusVisible) {
-      rippleChild.classList.add('pulsate');
+      rippleChild.classList.add('pulsate')
     }
-    this.rippleRoot.appendChild(rippleChild);
+    this.rippleRoot.appendChild(rippleChild)
   }
 
   private stopRipple() {
-    const rippleChild = this.rippleChildren.shift();
+    const rippleChild = this.rippleChildren.shift()
 
-    if (!rippleChild) return;
+    if (!rippleChild) return
 
     rippleChild.addEventListener('animationend', (event) => {
       if (event.animationName === 'exitKeyframe') {
-        rippleChild.remove();
+        rippleChild.remove()
       }
-    });
-    rippleChild.classList.add('exit');
+    })
+    rippleChild.classList.add('exit')
   }
 }

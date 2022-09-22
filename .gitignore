@@ -9,3 +9,4 @@ coverage
 .yarn/install-state.gz
 
 es/
+storybook-static/
