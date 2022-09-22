@@ -1,9 +1,9 @@
-import { defineConfig } from 'rollup';
-import typescript from '@rollup/plugin-typescript';
-import { importAssertionsPlugin } from 'rollup-plugin-import-assert';
-import { importAssertions } from 'acorn-import-assertions';
+import { defineConfig } from 'rollup'
+import typescript from '@rollup/plugin-typescript'
+import { importAssertionsPlugin } from 'rollup-plugin-import-assert'
+import { importAssertions } from 'acorn-import-assertions'
 
-const OUTPUT_DIR = 'es';
+const OUTPUT_DIR = 'es'
 
 export default defineConfig([{
   input: ['src/index.ts', 'src/utils/PubSub.ts'],
@@ -18,4 +18,4 @@ export default defineConfig([{
     importAssertionsPlugin(),
   ],
   acornInjectPlugins: [importAssertions],
-}]);
+}])
