@@ -5,17 +5,19 @@ import { importAssertions } from 'acorn-import-assertions'
 
 const OUTPUT_DIR = 'es'
 
-export default defineConfig([{
-  input: ['src/index.ts', 'src/utils/PubSub.ts'],
-  output: {
-    dir: OUTPUT_DIR,
-    format: 'es',
+export default defineConfig([
+  {
+    input: ['src/index.ts'],
+    output: {
+      dir: OUTPUT_DIR,
+      format: 'es',
+    },
+    plugins: [
+      typescript({
+        compilerOptions: { outDir: OUTPUT_DIR, declarationDir: OUTPUT_DIR },
+      }),
+      importAssertionsPlugin(),
+    ],
+    acornInjectPlugins: [importAssertions],
   },
-  plugins: [
-    typescript({
-      compilerOptions: { outDir: OUTPUT_DIR, declarationDir: OUTPUT_DIR },
-    }),
-    importAssertionsPlugin(),
-  ],
-  acornInjectPlugins: [importAssertions],
-}])
+])
