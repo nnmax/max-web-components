@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import styles from './button.style.css' assert { type: 'css' }
 
 export interface MaxButtonProps {
@@ -10,7 +9,7 @@ export interface MaxButtonProps {
 }
 
 export default class MaxButton extends HTMLElement {
-  private readonly rippleChildren: HTMLSpanElement[] = []
+  readonly #rippleChildren: HTMLSpanElement[] = []
 
   constructor() {
     super()
@@ -19,12 +18,8 @@ export default class MaxButton extends HTMLElement {
     this.shadowRoot.adoptedStyleSheets = [styles]
   }
 
-  get rippleRoot() {
-    return this.shadowRoot.querySelector<HTMLSpanElement>('.MaxButton-root > .MaxRipple-root')
-  }
-
-  connectedCallback() {
-    this.render()
+  get #rippleRoot() {
+    return this.shadowRoot.querySelector<HTMLSpanElement>('button > .MaxRipple-root')
   }
 
   // --------- attributes ----------
@@ -49,16 +44,22 @@ export default class MaxButton extends HTMLElement {
     this.render()
   }
 
+  connectedCallback() {
+    this.render()
+    if (this.#rippleRoot) {
+      this.addEventListener('mousedown', this.#startRipple)
+      this.addEventListener('focus', this.#startRipple)
+      this.addEventListener('mouseup', this.#stopRipple)
+      this.addEventListener('mouseleave', this.#stopRipple)
+      this.addEventListener('blur', this.#stopRipple)
+    }
+  }
+
   render() {
     const tabindex = this.disabled ? -1 : 0
 
     this.shadowRoot.innerHTML = `
       <button
-        class="${classNames('MaxButton-root', {
-          [`MaxButton-${this.variant}`]: this.variant,
-          [`MaxButton-${this.color}`]: this.color,
-          'MaxButton-disabled': this.disabled,
-        })}"
         ${this.disabled ? 'disabled' : ''}
         type="${this.type}"
         tabindex=${tabindex}
@@ -71,17 +72,9 @@ export default class MaxButton extends HTMLElement {
     if (this.disabled) {
       this.style.pointerEvents = 'none'
     }
-
-    if (this.rippleRoot) {
-      this.addEventListener('mousedown', this.startRipple)
-      this.addEventListener('focus', this.startRipple)
-      this.addEventListener('mouseup', this.stopRipple)
-      this.addEventListener('mouseleave', this.stopRipple)
-      this.addEventListener('blur', this.stopRipple)
-    }
   }
 
-  private createRippleChild(rect: Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>) {
+  #createRippleChild(rect: Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>) {
     // eslint-disable-next-line padded-blocks
     /**
      * 创建以下结构：
@@ -101,12 +94,12 @@ export default class MaxButton extends HTMLElement {
     if (top) rippleChild.style.top = rect.top
     if (left) rippleChild.style.left = rect.left
 
-    this.rippleChildren.push(rippleChild)
+    this.#rippleChildren.push(rippleChild)
 
     return rippleChild
   }
 
-  private startRipple(event: MouseEvent | FocusEvent) {
+  #startRipple(event: MouseEvent | FocusEvent) {
     const { left, top, width, height } = this.getBoundingClientRect()
 
     let clientX = 0
@@ -120,7 +113,7 @@ export default class MaxButton extends HTMLElement {
     let isFocusVisible = false
 
     if (event instanceof FocusEvent) {
-      const button = this.shadowRoot.querySelector<HTMLButtonElement>('.MaxButton-root')
+      const button = this.shadowRoot.querySelector<HTMLButtonElement>('button')
       if (!button || !button.matches(':focus-visible')) {
         return
       }
@@ -139,7 +132,7 @@ export default class MaxButton extends HTMLElement {
     const sizeY = Math.max(height - rippleY, rippleY) * 2
     const diagonal = Math.sqrt(sizeX ** 2 + sizeY ** 2)
 
-    const rippleChild = this.createRippleChild({
+    const rippleChild = this.#createRippleChild({
       width: `${diagonal}px`,
       height: `${diagonal}px`,
       left: `${-diagonal / 2 + rippleX}px`,
@@ -148,11 +141,11 @@ export default class MaxButton extends HTMLElement {
     if (isFocusVisible) {
       rippleChild.classList.add('pulsate')
     }
-    this.rippleRoot.appendChild(rippleChild)
+    this.#rippleRoot.appendChild(rippleChild)
   }
 
-  private stopRipple() {
-    const rippleChild = this.rippleChildren.shift()
+  #stopRipple() {
+    const rippleChild = this.#rippleChildren.shift()
 
     if (!rippleChild) return
 

@@ -21,7 +21,6 @@
     "postpack": "pinst --enable"
   },
   "dependencies": {
-    "classnames": "^2.3.2",
     "lit-html": "^2.4.0"
   },
   "devDependencies": {
