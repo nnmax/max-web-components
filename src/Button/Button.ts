@@ -10,47 +10,65 @@ export interface MaxButtonProps {
 }
 
 export default class MaxButton extends HTMLElement {
-  private readonly rippleRoot: HTMLSpanElement | null
-
   private readonly rippleChildren: HTMLSpanElement[] = []
 
   constructor() {
     super()
 
-    const color = this.getAttribute('color') || 'primary'
-    const variant = this.getAttribute('variant') || 'contained'
-    const disabled = this.getAttribute('disabled') !== null
-    const type = this.getAttribute('type') || 'button'
+    this.attachShadow({ mode: 'open' })
+    this.shadowRoot.adoptedStyleSheets = [styles]
+  }
 
-    const tabindex = disabled ? -1 : 0
+  get rippleRoot() {
+    return this.shadowRoot.querySelector<HTMLSpanElement>('.MaxButton-root > .MaxRipple-root')
+  }
 
-    const html = `
+  connectedCallback() {
+    this.render()
+  }
+
+  // --------- attributes ----------
+  static get observedAttributes() {
+    return ['disabled', 'color', 'variant', 'type']
+  }
+  get color() {
+    return this.getAttribute('color') || 'primary'
+  }
+  get variant() {
+    return this.getAttribute('variant') || 'contained'
+  }
+  get disabled() {
+    return this.getAttribute('disabled') !== null
+  }
+  get type() {
+    return this.getAttribute('type') || 'button'
+  }
+  // --------- attributes ----------
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  render() {
+    const tabindex = this.disabled ? -1 : 0
+
+    this.shadowRoot.innerHTML = `
       <button
         class="${classNames('MaxButton-root', {
-          [`MaxButton-${variant}`]: variant,
-          [`MaxButton-${color}`]: color,
-          'MaxButton-disabled': disabled,
+          [`MaxButton-${this.variant}`]: this.variant,
+          [`MaxButton-${this.color}`]: this.color,
+          'MaxButton-disabled': this.disabled,
         })}"
-        ${disabled ? 'disabled' : ''}
-        type="${type}"
+        ${this.disabled ? 'disabled' : ''}
+        type="${this.type}"
         tabindex=${tabindex}
       >
         <slot></slot>
-        ${disabled ? '' : '<span class="MaxRipple-root"></span>'}
+        ${this.disabled ? '' : '<span class="MaxRipple-root"></span>'}
       </button>
     `
 
-    const shadowRoot = this.attachShadow({ mode: 'open' })
-    shadowRoot.innerHTML = html
-
-    // @ts-expect-error type of `styles` is CSSStyleSheet
-    this.shadowRoot.adoptedStyleSheets = [styles]
-
-    this.rippleRoot = shadowRoot.querySelector(
-      '.MaxButton-root > .MaxRipple-root'
-    )
-
-    if (disabled) {
+    if (this.disabled) {
       this.style.pointerEvents = 'none'
     }
 
@@ -63,9 +81,7 @@ export default class MaxButton extends HTMLElement {
     }
   }
 
-  private createRippleChild(
-    rect: Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>
-  ) {
+  private createRippleChild(rect: Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>) {
     // eslint-disable-next-line padded-blocks
     /**
      * 创建以下结构：
@@ -104,9 +120,7 @@ export default class MaxButton extends HTMLElement {
     let isFocusVisible = false
 
     if (event instanceof FocusEvent) {
-      const button = this.shadowRoot.querySelector(
-        '.MaxButton-root'
-      ) as HTMLButtonElement
+      const button = this.shadowRoot.querySelector<HTMLButtonElement>('.MaxButton-root')
       if (!button || !button.matches(':focus-visible')) {
         return
       }
