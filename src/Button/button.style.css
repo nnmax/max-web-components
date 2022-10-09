@@ -2,7 +2,7 @@
   display: inline-flex;
 }
 
-.MaxButton-root {
+button {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -26,167 +26,121 @@
   transition-duration: 0.25s;
 }
 
-.MaxButton-disabled {
+:host([disabled]) button {
   pointer-events: none;
   cursor: default;
 }
 
-.MaxButton-text {
+/* -------------- text -------------- */
+:host([variant='text']) button {
   background-color: transparent;
   color: #1976d2;
 }
 
-.MaxButton-text:hover {
+:host([variant='text']) button:hover {
   background-color: rgba(25, 118, 210, 0.04);
 }
 
-.MaxButton-text.MaxButton-secondary {
+:host([variant='text'][color='secondary']) button {
   color: #9c27b0;
 }
 
-.MaxButton-text.MaxButton-secondary:hover {
+:host([variant='text'][color='secondary']) button:hover {
   background-color: rgba(156, 39, 176, 0.04);
 }
 
-.MaxButton-text.MaxButton-success {
+:host([variant='text'][color='success']) button {
   color: #2e7d32;
 }
 
-.MaxButton-text.MaxButton-success:hover {
+:host([variant='text'][color='success']) button:hover {
   background-color: rgba(46, 125, 50, 0.04);
 }
 
-.MaxButton-text.MaxButton-error {
-  color: #d32f2f;
-}
-
-.MaxButton-text.MaxButton-error:hover {
-  background-color: rgba(211, 47, 47, 0.04);
-}
-
-.MaxButton-text.MaxButton-warning {
-  color: #ed6c02;
-}
-
-.MaxButton-text.MaxButton-warning:hover {
-  background-color: rgba(237, 108, 2, 0.04);
-}
-
-.MaxButton-text.MaxButton-disabled {
+:host([variant='text'][disabled]) button {
   color: rgba(0, 0, 0, 0.26);
 }
+/* -------------- text -------------- */
 
-.MaxButton-contained {
+/* -------------- contained -------------- */
+:host([variant='contained']) button {
   background-color: #1976d2;
   color: #fff;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
     0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
-.MaxButton-contained:hover {
+:host([variant='contained']) button:hover {
   background-color: #1565c0;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
     0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-.MaxButton-contained:active {
+:host([variant='contained']) button:active {
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14),
     0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
-.MaxButton-contained.MaxButton-secondary {
+:host([variant='contained'][color='secondary']) button {
   background-color: #9c27b0;
 }
 
-.MaxButton-contained.MaxButton-secondary:hover {
+:host([variant='contained'][color='secondary']) button:hover {
   background-color: #7b1fa2;
 }
 
-.MaxButton-contained.MaxButton-success {
+:host([variant='contained'][color='success']) button {
   background-color: #2e7d32;
 }
 
-.MaxButton-contained.MaxButton-success:hover {
+:host([variant='contained'][color='success']) button:hover {
   background-color: #1b5e20;
 }
 
-.MaxButton-contained.MaxButton-success {
-  background-color: #2e7d32;
-}
-
-.MaxButton-contained.MaxButton-success:hover {
-  background-color: #1b5e20;
-}
-
-.MaxButton-contained.MaxButton-warning {
-  background-color: #ed6c02;
-}
-
-.MaxButton-contained.MaxButton-warning:hover {
-  background-color: #e65100;
-}
-
-.MaxButton-contained.MaxButton-disabled {
+:host([variant='contained'][disabled]) button {
   color: rgba(0, 0, 0, 0.26);
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.12);
 }
+/* -------------- contained -------------- */
 
-.MaxButton-outlined {
+/* -------------- outlined -------------- */
+:host([variant='outlined']) button {
   border: 1px solid rgba(25, 118, 210, 0.5);
   color: #1976d2;
   background-color: transparent;
 }
 
-.MaxButton-outlined:hover {
+:host([variant='outlined']) button:hover {
   background-color: rgba(25, 118, 210, 0.04);
   border: 1px solid #1976d2;
 }
 
-.MaxButton-outlined.MaxButton-secondary {
+:host([variant='outlined'][color='secondary']) button {
   border: 1px solid rgba(156, 39, 176, 0.5);
   color: #9c27b0;
 }
 
-.MaxButton-outlined.MaxButton-secondary:hover {
+:host([variant='outlined'][color='secondary']) button:hover {
   background-color: rgba(156, 39, 176, 0.04);
   border: 1px solid #9c27b0;
 }
 
-.MaxButton-outlined.MaxButton-success {
+:host([variant='outlined'][color='success']) button {
   border: 1px solid rgba(46, 125, 50, 0.5);
   color: #2e7d32;
 }
 
-.MaxButton-outlined.MaxButton-success:hover {
+:host([variant='outlined'][color='success']) button:hover {
   background-color: rgba(46, 125, 50, 0.04);
   border: 1px solid #2e7d32;
 }
 
-.MaxButton-outlined.MaxButton-error {
-  border: 1px solid rgba(211, 47, 47, 0.5);
-  color: #d32f2f;
-}
-
-.MaxButton-outlined.MaxButton-error:hover {
-  background-color: rgba(211, 47, 47, 0.04);
-  border: 1px solid #d32f2f;
-}
-
-.MaxButton-outlined.MaxButton-warning {
-  border: 1px solid rgba(237, 108, 2, 0.5);
-  color: #ed6c02;
-}
-
-.MaxButton-outlined.MaxButton-warning:hover {
-  background-color: rgba(237, 108, 2, 0.04);
-  border: 1px solid #ed6c02;
-}
-
-.MaxButton-outlined.MaxButton-disabled {
+:host([variant='outlined'][disabled]) button {
   color: rgba(0, 0, 0, 0.26);
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
+/* -------------- outlined -------------- */
 
 @keyframes enterKeyframe {
   0% {
