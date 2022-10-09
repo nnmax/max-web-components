@@ -3,10 +3,7 @@ coverage
 # Yarn Integrity file
 .yarn-integrity
 
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
+.yarn/**
 yarn.lock
 
 es/

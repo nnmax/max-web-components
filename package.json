@@ -14,7 +14,8 @@
     "eslint": "eslint . --ext .js,.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prettier": "yarn prettier --write .",
+    "prettier": "prettier --write .",
+    "prettier:ci": "prettier --check .",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
