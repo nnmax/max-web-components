@@ -8,12 +8,12 @@ const eslintConfig = {
     'plugin:storybook/recommended',
     'prettier',
   ],
-  rules: {},
   ignorePatterns: [
     'coverage/**',
     'es/**',
     'node_modules/**',
     'storybook-static/**',
+    '.yarn/**',
   ],
 }
 

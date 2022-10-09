@@ -1,0 +1,75 @@
+name: CI on Pull Request
+
+on:
+  push:
+    branches: ['main', 'ci']
+
+  pull_request:
+    branches: ['main', 'ci']
+
+  workflow_dispatch:
+
+jobs:
+  install:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: cache-yarn
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn install --immutable
+
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Restore node_modules
+        uses: actions/cache@v3
+        id: cache-yarn
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: ESLint
+        run: yarn eslint
+
+      - name: Prettier
+        run: yarn prettier:ci
