@@ -48,9 +48,7 @@
         class="feather feather-check-square"
       >
         <polyline points="9 11 12 14 22 4"></polyline>
-        <path
-          d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
-        ></path>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
       </svg>
     </template>
 
@@ -72,11 +70,7 @@
 
           const input = this.querySelector('input')
           input.addEventListener('input', (event) => {
-            console.log(
-              '%c [ event ]-43',
-              'font-size:13px; background:pink; color:#bf2c9f;',
-              event
-            )
+            console.log('%c [ event ]-43', 'font-size:13px; background:pink; color:#bf2c9f;', event)
             const { checked } = event.target
             const svg = root.querySelector('svg')
             if (svg) svg.remove()
