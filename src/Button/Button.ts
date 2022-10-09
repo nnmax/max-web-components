@@ -1,12 +1,12 @@
-import classNames from '../utils/classNames'
+import classNames from 'classnames'
 import styles from './button.style.css' assert { type: 'css' }
 
 export interface MaxButtonProps {
-  variant?: 'text' | 'contained' | 'outlined';
-  color?: 'primary' | 'secondary' | 'success';
-  style?: string;
-  disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
+  variant?: 'text' | 'contained' | 'outlined'
+  color?: 'primary' | 'secondary' | 'success'
+  style?: string
+  disabled?: boolean
+  type?: 'button' | 'submit' | 'reset'
 }
 
 export default class MaxButton extends HTMLElement {
@@ -27,10 +27,10 @@ export default class MaxButton extends HTMLElement {
     const html = `
       <button
         class="${classNames('MaxButton-root', {
-    [`MaxButton-${variant}`]: variant,
-    [`MaxButton-${color}`]: color,
-    'MaxButton-disabled': disabled,
-  })}"
+          [`MaxButton-${variant}`]: variant,
+          [`MaxButton-${color}`]: color,
+          'MaxButton-disabled': disabled,
+        })}"
         ${disabled ? 'disabled' : ''}
         type="${type}"
         tabindex=${tabindex}
@@ -46,7 +46,9 @@ export default class MaxButton extends HTMLElement {
     // @ts-expect-error type of `styles` is CSSStyleSheet
     this.shadowRoot.adoptedStyleSheets = [styles]
 
-    this.rippleRoot = shadowRoot.querySelector('.MaxButton-root > .MaxRipple-root')
+    this.rippleRoot = shadowRoot.querySelector(
+      '.MaxButton-root > .MaxRipple-root'
+    )
 
     if (disabled) {
       this.style.pointerEvents = 'none'
@@ -62,7 +64,7 @@ export default class MaxButton extends HTMLElement {
   }
 
   private createRippleChild(
-    rect: Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>,
+    rect: Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>
   ) {
     // eslint-disable-next-line padded-blocks
     /**
@@ -77,9 +79,7 @@ export default class MaxButton extends HTMLElement {
     rippleChildChild.classList.add('MaxRipple-child-child')
     rippleChild.appendChild(rippleChildChild)
 
-    const {
-      height, left, top, width,
-    } = rect
+    const { height, left, top, width } = rect
     if (height) rippleChild.style.height = rect.height
     if (width) rippleChild.style.width = rect.width
     if (top) rippleChild.style.top = rect.top
@@ -91,12 +91,10 @@ export default class MaxButton extends HTMLElement {
   }
 
   private startRipple(event: MouseEvent | FocusEvent) {
-    const {
-      left, top, width, height,
-    } = this.getBoundingClientRect()
+    const { left, top, width, height } = this.getBoundingClientRect()
 
-    let clientX = 0; let
-      clientY = 0
+    let clientX = 0
+    let clientY = 0
 
     /**
      * 涟漪效果是否从节点的中心扩散，否则从鼠标点击的位置开始扩散
@@ -106,7 +104,9 @@ export default class MaxButton extends HTMLElement {
     let isFocusVisible = false
 
     if (event instanceof FocusEvent) {
-      const button = this.shadowRoot.querySelector('.MaxButton-root') as HTMLButtonElement
+      const button = this.shadowRoot.querySelector(
+        '.MaxButton-root'
+      ) as HTMLButtonElement
       if (!button || !button.matches(':focus-visible')) {
         return
       }
@@ -125,14 +125,12 @@ export default class MaxButton extends HTMLElement {
     const sizeY = Math.max(height - rippleY, rippleY) * 2
     const diagonal = Math.sqrt(sizeX ** 2 + sizeY ** 2)
 
-    const rippleChild = this.createRippleChild(
-      {
-        width: `${diagonal}px`,
-        height: `${diagonal}px`,
-        left: `${-diagonal / 2 + rippleX}px`,
-        top: `${-diagonal / 2 + rippleY}px`,
-      },
-    )
+    const rippleChild = this.createRippleChild({
+      width: `${diagonal}px`,
+      height: `${diagonal}px`,
+      left: `${-diagonal / 2 + rippleX}px`,
+      top: `${-diagonal / 2 + rippleY}px`,
+    })
     if (isFocusVisible) {
       rippleChild.classList.add('pulsate')
     }
