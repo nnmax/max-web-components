@@ -79,16 +79,19 @@
 .MaxButton-contained {
   background-color: #1976d2;
   color: #fff;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
 .MaxButton-contained:hover {
   background-color: #1565c0;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
 .MaxButton-contained:active {
-  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .MaxButton-contained.MaxButton-secondary {
@@ -237,19 +240,19 @@
   border-radius: inherit;
 }
 
-.MaxRipple-root>.MaxRipple-child {
+.MaxRipple-root > .MaxRipple-child {
   position: absolute;
   display: block;
   opacity: 0;
 }
 
-.MaxRipple-root>.MaxRipple-child.enter {
+.MaxRipple-root > .MaxRipple-child.enter {
   opacity: 0.3;
   transform: scale(1);
   animation: enterKeyframe 550ms ease-in-out;
 }
 
-.MaxRipple-root>.MaxRipple-child>.MaxRipple-child-child {
+.MaxRipple-root > .MaxRipple-child > .MaxRipple-child-child {
   opacity: 1;
   display: block;
   width: 100%;
@@ -258,12 +261,12 @@
   background-color: currentColor;
 }
 
-.MaxRipple-root>.MaxRipple-child.exit>.MaxRipple-child-child {
+.MaxRipple-root > .MaxRipple-child.exit > .MaxRipple-child-child {
   opacity: 0;
   animation: exitKeyframe 550ms ease-in-out;
 }
 
-.MaxRipple-root>.MaxRipple-child.pulsate>.MaxRipple-child-child {
+.MaxRipple-root > .MaxRipple-child.pulsate > .MaxRipple-child-child {
   position: absolute;
   left: 0;
   top: 0;

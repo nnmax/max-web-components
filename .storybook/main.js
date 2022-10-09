@@ -1,13 +1,7 @@
 /** @type {import('@storybook/core-common').StorybookConfig} */
 module.exports = {
-  stories: [
-    '../src/**/*.stories.mdx',
-    '../src/**/*.stories.@(js|jsx|ts|tsx)'
-  ],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials'
-  ],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   framework: '@storybook/web-components',
   core: {
     builder: 'webpack5',
@@ -24,17 +18,17 @@ module.exports = {
           sideEffects: true,
           oneOf: [
             {
-              assert: { type: "css" },
-              loader: "css-loader",
+              assert: { type: 'css' },
+              loader: 'css-loader',
               options: {
-                exportType: "css-style-sheet",
+                exportType: 'css-style-sheet',
               },
             },
             {
               use: [
-                "style-loader",
+                'style-loader',
                 {
-                  loader: "css-loader",
+                  loader: 'css-loader',
                 },
               ],
             },
@@ -44,5 +38,5 @@ module.exports = {
       return rule
     })
     return config
-  }
+  },
 }

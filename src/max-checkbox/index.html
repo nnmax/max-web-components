@@ -1,68 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MaxCheckbox</title>
-  
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MaxCheckbox</title>
+  </head>
+  <body>
+    <max-checkbox></max-checkbox>
 
-  <max-checkbox></max-checkbox>
+    <template id="checkbox-template">
+      <span class="MaxCheckbox-root">
+        <input type="checkbox" class="MaxCheckbox" />
+      </span>
+    </template>
 
-  <template id="checkbox-template">
-    <span class="MaxCheckbox-root">
-      <input type="checkbox" class="MaxCheckbox">
-    </span>
-  </template>
+    <input id="test" type="checkbox" />
 
-  <input id="test" type="checkbox">
+    <template id="uncheck-svg">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-square"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+      </svg>
+    </template>
 
-  <template id="uncheck-svg">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
-  </template>
+    <template id="check-svg">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-check-square"
+      >
+        <polyline points="9 11 12 14 22 4"></polyline>
+        <path
+          d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+        ></path>
+      </svg>
+    </template>
 
-  <template id="check-svg">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-  </template>
+    <script>
+      class MaxCheckbox extends HTMLElement {
+        constructor() {
+          super()
 
-  <script>
-    class MaxCheckbox extends HTMLElement {
-      constructor() {
-        super()
+          this.attachShadow({ mode: 'open' })
 
-        this.attachShadow({ mode: 'open' })
+          const template = document.querySelector('#checkbox-template')
+          const uncheckSvg = document.querySelector('#uncheck-svg')
+          const checkSvg = document.querySelector('#check-svg')
+          const root = template.content.querySelector('span.MaxCheckbox-root')
+          root.appendChild(document.importNode(uncheckSvg.content, true))
 
-        const template = document.querySelector('#checkbox-template')
-        const uncheckSvg = document.querySelector('#uncheck-svg')
-        const checkSvg = document.querySelector('#check-svg')
-        const root = template.content.querySelector('span.MaxCheckbox-root')
-        root.appendChild(
-          document.importNode(uncheckSvg.content, true)
-        )
-        
-        const cloned = document.importNode(template.content, true)
-        this.shadowRoot.appendChild(
-          cloned
-        )
+          const cloned = document.importNode(template.content, true)
+          this.shadowRoot.appendChild(cloned)
 
-        const input = this.querySelector('input')
-        input.addEventListener('input', (event) => {
-          console.log('%c [ event ]-43', 'font-size:13px; background:pink; color:#bf2c9f;', event)
-          const { checked } = event.target
-          const svg = root.querySelector('svg')
-          if (svg) svg.remove()
-          if (checked) {
-            root.appendChild(checkSvg)
-            return
-          }
-          root.appendChild(uncheckSvg)
-        })
+          const input = this.querySelector('input')
+          input.addEventListener('input', (event) => {
+            console.log(
+              '%c [ event ]-43',
+              'font-size:13px; background:pink; color:#bf2c9f;',
+              event
+            )
+            const { checked } = event.target
+            const svg = root.querySelector('svg')
+            if (svg) svg.remove()
+            if (checked) {
+              root.appendChild(checkSvg)
+              return
+            }
+            root.appendChild(uncheckSvg)
+          })
+        }
       }
-    }
 
-    window.customElements.define('max-checkbox', MaxCheckbox)
-  </script>
-</body>
+      window.customElements.define('max-checkbox', MaxCheckbox)
+    </script>
+  </body>
 </html>
