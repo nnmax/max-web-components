@@ -1,0 +1,17 @@
+:root {
+  --max-alpha: 4%;
+  --contrast-threshold: 60%;
+
+  --max-primary-h: 265;
+  --max-primary-s: 100%;
+  --max-primary-l: 47%;
+  --max-palette-primary: hsl(var(--max-primary-h), var(--max-primary-s), var(--max-primary-l));
+
+  --max-secondary-h: 180;
+  --max-secondary-s: 99%;
+  --max-secondary-l: 27%;
+  --max-palette-secondary: hsl(var(--max-secondary-h), var(--max-secondary-s), var(--max-secondary-l));
+
+  --max-color-disabled: rgba(0, 0, 0, 0.26);
+  --max-bg-disabled: rgba(0, 0, 0, 0.12);
+}

@@ -1,5 +1,6 @@
 import type { Meta } from '@storybook/web-components'
 import { html } from 'lit-html'
+import '../../theme/theme.css'
 import '..'
 
 export default {
@@ -16,7 +17,7 @@ export default {
       defaultValue: 'primary',
       type: {
         name: 'enum',
-        value: ['primary', 'secondary', 'success'],
+        value: ['primary', 'secondary'],
       },
     },
     type: {

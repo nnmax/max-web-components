@@ -1,5 +1,64 @@
 :host {
   display: inline-flex;
+
+  --max-button-color-text-primary: var(--max-palette-primary);
+  --max-button-color-text-secondary: var(--max-palette-secondary);
+  --max-button-color-text-disabled: var(--max-color-disabled);
+  --max-button-color-outlined-primary: var(--max-palette-primary);
+  --max-button-color-outlined-secondary: var(--max-palette-secondary);
+  --max-button-color-outlined-primary-disabled: var(--max-color-disabled);
+  --max-button-color-contained-disabled: var(--max-color-disabled);
+  --max-button-color-contained-primary: hsl(0, 0%, calc((var(--max-primary-l) - var(--contrast-threshold)) * -100));
+  --max-button-color-contained-secondary: hsl(0, 0%, calc((var(--max-secondary-l) - var(--contrast-threshold)) * -100));
+
+  --max-button-bg-contained-primary: var(--max-palette-primary);
+  --max-button-bg-contained-primary-hover: hsl(
+    var(--max-primary-h),
+    var(--max-primary-s),
+    calc(var(--max-primary-l) - 2%)
+  );
+  --max-button-bg-contained-secondary: var(--max-palette-secondary);
+  --max-button-bg-contained-secondary-hover: hsl(
+    var(--max-secondary-h),
+    var(--max-secondary-s),
+    calc(var(--max-secondary-l) - 2%)
+  );
+  --max-button-bg-contained-disabled: var(--max-bg-disabled);
+  --max-button-bg-text-primary-hover: hsl(
+    var(--max-primary-h),
+    var(--max-primary-s),
+    var(--max-primary-l),
+    var(--max-alpha)
+  );
+  --max-button-bg-text-secondary-hover: hsl(
+    var(--max-secondary-h),
+    var(--max-secondary-s),
+    var(--max-secondary-l),
+    var(--max-alpha)
+  );
+  --max-button-bg-outlined-primary-hover: hsl(
+    var(--max-primary-h),
+    var(--max-primary-s),
+    var(--max-primary-l),
+    var(--max-alpha)
+  );
+  --max-button-bg-outlined-secondary-hover: hsl(
+    var(--max-secondary-h),
+    var(--max-secondary-s),
+    var(--max-secondary-l),
+    var(--max-alpha)
+  );
+
+  --max-button-border-outlined-primary: hsl(var(--max-primary-h), var(--max-primary-s), var(--max-primary-l), 50%);
+  --max-button-border-outlined-primary-hover: var(--max-palette-primary);
+  --max-button-border-outlined-secondary: hsl(
+    var(--max-secondary-h),
+    var(--max-secondary-s),
+    var(--max-secondary-l),
+    50%
+  );
+  --max-button-border-outlined-secondary-hover: var(--max-palette-secondary);
+  --max-button-border-outlined-disabled: var(--max-bg-disabled);
 }
 
 button {
@@ -34,44 +93,36 @@ button {
 /* -------------- text -------------- */
 :host([variant='text']) button {
   background-color: transparent;
-  color: #1976d2;
+  color: var(--max-button-color-text-primary);
 }
 
 :host([variant='text']) button:hover {
-  background-color: rgba(25, 118, 210, 0.04);
+  background-color: var(--max-button-bg-text-primary-hover);
 }
 
 :host([variant='text'][color='secondary']) button {
-  color: #9c27b0;
+  color: var(--max-button-color-text-secondary);
 }
 
 :host([variant='text'][color='secondary']) button:hover {
-  background-color: rgba(156, 39, 176, 0.04);
-}
-
-:host([variant='text'][color='success']) button {
-  color: #2e7d32;
-}
-
-:host([variant='text'][color='success']) button:hover {
-  background-color: rgba(46, 125, 50, 0.04);
+  background-color: var(--max-button-bg-text-secondary-hover);
 }
 
 :host([variant='text'][disabled]) button {
-  color: rgba(0, 0, 0, 0.26);
+  color: var(--max-button-color-text-disabled);
 }
 /* -------------- text -------------- */
 
 /* -------------- contained -------------- */
 :host([variant='contained']) button {
-  background-color: #1976d2;
-  color: #fff;
+  background-color: var(--max-button-bg-contained-primary);
+  color: var(--max-button-color-contained-primary);
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
     0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
 :host([variant='contained']) button:hover {
-  background-color: #1565c0;
+  background-color: var(--max-button-bg-contained-primary-hover);
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
     0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
@@ -82,63 +133,46 @@ button {
 }
 
 :host([variant='contained'][color='secondary']) button {
-  background-color: #9c27b0;
+  background-color: var(--max-button-bg-contained-secondary);
+  color: var(--max-button-color-contained-primary);
 }
 
 :host([variant='contained'][color='secondary']) button:hover {
-  background-color: #7b1fa2;
-}
-
-:host([variant='contained'][color='success']) button {
-  background-color: #2e7d32;
-}
-
-:host([variant='contained'][color='success']) button:hover {
-  background-color: #1b5e20;
+  background-color: var(--max-button-bg-contained-secondary-hover);
 }
 
 :host([variant='contained'][disabled]) button {
-  color: rgba(0, 0, 0, 0.26);
+  color: var(--max-button-color-contained-disabled);
   box-shadow: none;
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: var(--max-button-bg-contained-disabled);
 }
 /* -------------- contained -------------- */
 
 /* -------------- outlined -------------- */
 :host([variant='outlined']) button {
-  border: 1px solid rgba(25, 118, 210, 0.5);
-  color: #1976d2;
+  border: 1px solid var(--max-button-border-outlined-primary);
+  color: var(--max-button-color-outlined-primary);
   background-color: transparent;
 }
 
 :host([variant='outlined']) button:hover {
-  background-color: rgba(25, 118, 210, 0.04);
-  border: 1px solid #1976d2;
+  background-color: var(--max-button-bg-outlined-primary-hover);
+  border: 1px solid var(--max-button-border-outlined-primary-hover);
 }
 
 :host([variant='outlined'][color='secondary']) button {
-  border: 1px solid rgba(156, 39, 176, 0.5);
-  color: #9c27b0;
+  border: 1px solid var(--max-button-border-outlined-secondary);
+  color: var(--max-button-color-outlined-secondary);
 }
 
 :host([variant='outlined'][color='secondary']) button:hover {
-  background-color: rgba(156, 39, 176, 0.04);
-  border: 1px solid #9c27b0;
-}
-
-:host([variant='outlined'][color='success']) button {
-  border: 1px solid rgba(46, 125, 50, 0.5);
-  color: #2e7d32;
-}
-
-:host([variant='outlined'][color='success']) button:hover {
-  background-color: rgba(46, 125, 50, 0.04);
-  border: 1px solid #2e7d32;
+  background-color: var(--max-button-bg-outlined-secondary-hover);
+  border: 1px solid var(--max-button-border-outlined-secondary-hover);
 }
 
 :host([variant='outlined'][disabled]) button {
-  color: rgba(0, 0, 0, 0.26);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--max-button-color-outlined-primary-disabled);
+  border: 1px solid var(--max-button-border-outlined-disabled);
 }
 /* -------------- outlined -------------- */
 

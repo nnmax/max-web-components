@@ -2,7 +2,7 @@ import styles from './button.style.css' assert { type: 'css' }
 
 export interface MaxButtonProps {
   variant?: 'text' | 'contained' | 'outlined'
-  color?: 'primary' | 'secondary' | 'success'
+  color?: 'primary' | 'secondary'
   style?: string
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
