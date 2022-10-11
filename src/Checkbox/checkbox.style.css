@@ -1,0 +1,78 @@
+:host {
+  display: inline-flex;
+
+  /* Default or primary color */
+  --max-checkbox-bg: var(--max-palette-primary);
+  --max-checkbox-bg-hover: hsl(var(--max-primary-h), var(--max-primary-s), var(--max-primary-l), var(--max-alpha));
+}
+
+/* Secondary color */
+:host([color='secondary']) {
+  --max-checkbox-bg: var(--max-palette-secondary);
+  --max-checkbox-bg-hover: hsl(
+    var(--max-secondary-h),
+    var(--max-secondary-s),
+    var(--max-secondary-l),
+    var(--max-alpha)
+  );
+}
+
+label {
+  display: inline-flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+label:hover > .input-wrapper {
+  background-color: var(--max-checkbox-bg-hover);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  width: 42px;
+  height: 42px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 12px;
+  color: var(--max-checkbox-bg);
+  border-radius: 50%;
+}
+
+input[type='checkbox'] {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: inherit;
+  accent-color: var(--max-checkbox-bg);
+}
+
+/* --------- indeterminate --------- */
+input[type='checkbox']:indeterminate::before {
+  content: '';
+  display: block;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+  background-color: var(--max-checkbox-bg);
+  border-radius: 2px;
+}
+
+input[type='checkbox']:indeterminate::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 55%;
+  height: 2px;
+  background-color: white;
+  border: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* --------- indeterminate --------- */

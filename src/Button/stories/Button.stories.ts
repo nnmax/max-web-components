@@ -4,7 +4,7 @@ import '../../theme/theme.css'
 import '..'
 
 export default {
-  title: 'Components/MaxButton',
+  title: 'Components/Button',
   argTypes: {
     variant: {
       defaultValue: 'contained',
