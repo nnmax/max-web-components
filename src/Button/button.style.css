@@ -1,12 +1,13 @@
 :host {
   display: inline-flex;
+  outline: none;
 }
 
 :host([hidden]) {
   display: none;
 }
 
-:host([aria-disabled]) {
+:host([disabled]) {
   pointer-events: none;
 }
 

@@ -17,7 +17,7 @@ describe('Testing <max-button />', () => {
     { attribute: 'type', value: 'button' },
     { attribute: 'type', value: 'submit' },
     { attribute: 'type', value: 'reset' },
-    { attribute: 'aria-disabled', value: '' },
+    { attribute: 'disabled', value: '' },
     { attribute: 'role', value: 'menuitem' },
     { attribute: 'tabindex', value: '-1' },
   ])('should render a button with $attribute is `$value`', ({ attribute, value }) => {

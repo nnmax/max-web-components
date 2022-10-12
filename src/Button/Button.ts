@@ -22,17 +22,24 @@ export default class Button extends HTMLElement {
 
   // --------- attributes ----------
   static get observedAttributes() {
-    return ['aria-disabled', 'type']
+    return ['disabled', 'type']
   }
 
   get #disabled() {
-    return this.hasAttribute('aria-disabled')
+    return this.hasAttribute('disabled')
   }
 
   get #type() {
     return (this.getAttribute('type') as ButtonType) || 'button'
   }
   // --------- attributes ----------
+
+  attributeChangedCallback(attribute, _, newValue) {
+    if (attribute === 'disabled') {
+      const hasValue = newValue !== null
+      hasValue ? this.setAttribute('aria-disbaled', '') : this.removeAttribute('aria-disabled')
+    }
+  }
 
   connectedCallback() {
     this.#render()
@@ -69,9 +76,23 @@ export default class Button extends HTMLElement {
     })
 
     this.addEventListener('focus', () => {
-      const button = this.shadowRoot.querySelector('button')
-      if (button.matches(':focus-visible')) {
+      if (this.matches(':focus-visible')) {
         this.#rippleRoot.start({ pulsate: true })
+      }
+    })
+
+    let pressing = false
+    this.addEventListener('keydown', ({ key }) => {
+      if ((key === 'Enter' || key === ' ') && !pressing) {
+        pressing = true
+        this.#rippleRoot.start({ center: true })
+      }
+    })
+
+    this.addEventListener('keyup', ({ key }) => {
+      if (key === 'Enter' || key === ' ') {
+        pressing = false
+        this.#rippleRoot.stop()
       }
     })
 
@@ -84,13 +105,13 @@ export default class Button extends HTMLElement {
     })
 
     this.addEventListener('blur', () => {
-      this.#rippleRoot.stop()
+      this.#rippleRoot.stop(true)
     })
   }
 
   #render() {
     this.shadowRoot.innerHTML = `
-      <button>
+      <button tabindex="-1">
         <slot></slot>
         <max-ripple></max-ripple>
       </button>
