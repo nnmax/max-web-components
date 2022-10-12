@@ -10,7 +10,7 @@
     "start": "yarn storybook",
     "build": "rollup --config rollup.config.js",
     "build:watch": "yarn build --watch",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "eslint": "eslint . --ext .js,.ts",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
