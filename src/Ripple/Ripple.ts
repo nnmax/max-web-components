@@ -4,16 +4,18 @@ type Options = {
   clientX?: number
   clientY?: number
   pulsate?: boolean
+  center?: boolean
 }
 
 export default class Ripple extends HTMLElement {
-  rippleChildren: HTMLSpanElement[] = []
+  #rippleChildren: HTMLSpanElement[] = []
+  #pulsateChild: HTMLSpanElement = null
 
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.adoptedStyleSheets = [styles]
-    this.rippleChildren = []
+    this.#rippleChildren = []
   }
 
   get center() {
@@ -59,16 +61,15 @@ export default class Ripple extends HTMLElement {
     if (width) rippleChild.style.width = rect.width
     if (top) rippleChild.style.top = rect.top
     if (left) rippleChild.style.left = rect.left
-    this.rippleChildren.push(rippleChild)
 
     return rippleChild
   }
 
   start(options: Options) {
     const { left, top, width, height } = this.rippleRoot.getBoundingClientRect()
-    const { clientX = 0, clientY = 0, pulsate = false } = options || {}
+    const { clientX = 0, clientY = 0, pulsate = false, center: centerOption = false } = options || {}
 
-    const center = this.center || pulsate
+    const center = this.center || centerOption || pulsate
     const rippleX = center ? width / 2 : clientX - left
     const rippleY = center ? height / 2 : clientY - top
 
@@ -86,13 +87,22 @@ export default class Ripple extends HTMLElement {
 
     if (pulsate) {
       rippleChild.classList.add('pulsate')
+      this.#pulsateChild = rippleChild
+    } else {
+      this.#rippleChildren.push(rippleChild)
     }
 
     this.rippleRoot.appendChild(rippleChild)
   }
 
-  stop() {
-    const rippleChild = this.rippleChildren.shift()
+  stop(isPulsate = false) {
+    if (isPulsate) {
+      this.#pulsateChild?.remove()
+      this.#pulsateChild = null
+      return
+    }
+
+    const rippleChild = this.#rippleChildren.shift()
 
     if (!rippleChild) return
 

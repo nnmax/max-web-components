@@ -20,7 +20,11 @@ export default {
       control: 'text',
     },
     checked: {
-      defaultValue: false,
+      type: {
+        name: 'boolean',
+      },
+    },
+    disabled: {
       type: {
         name: 'boolean',
       },
@@ -34,10 +38,20 @@ export default {
   },
 } as Meta
 
-export const Basic = ({ color, value, checked, indeterminate }) => {
+export const Basic = ({ color, value, checked, indeterminate, disabled }) => {
   return html`
-    <max-checkbox color=${color} value=${value} ?checked=${checked} ?indeterminate=${indeterminate}
-      >Checkbox</max-checkbox
-    >
+    <form action="https://asfffsdadsdf.com" name="form">
+      <input type="text" name="name" />
+      <max-checkbox
+        color=${color}
+        value=${value}
+        ?disabled=${disabled}
+        name="my-checkbox"
+        ?checked=${checked}
+        ?indeterminate=${indeterminate}
+        >Checkbox</max-checkbox
+      >
+      <button type="submit">Submit</button>
+    </form>
   `
 }
