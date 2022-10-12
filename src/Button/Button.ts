@@ -2,11 +2,18 @@ import type Ripple from '../Ripple/Ripple'
 import styles from './button.style.css' assert { type: 'css' }
 import '../Ripple'
 
+type ButtonType = 'button' | 'submit' | 'reset'
+
 export default class Button extends HTMLElement {
+  static formAssociated = true
+
+  #internals: ElementInternals
+
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.adoptedStyleSheets.push(styles)
+    this.shadowRoot.adoptedStyleSheets = [styles]
+    this.#internals = this.attachInternals()
   }
 
   get #rippleRoot() {
@@ -15,24 +22,43 @@ export default class Button extends HTMLElement {
 
   // --------- attributes ----------
   static get observedAttributes() {
-    return ['disabled', 'type']
+    return ['aria-disabled', 'type']
   }
 
   get #disabled() {
-    return this.getAttribute('disabled') !== null
+    return this.hasAttribute('aria-disabled')
   }
+
   get #type() {
-    return this.getAttribute('type') || 'button'
+    return (this.getAttribute('type') as ButtonType) || 'button'
   }
   // --------- attributes ----------
 
-  attributeChangedCallback() {
-    this.#render()
-  }
-
   connectedCallback() {
     this.#render()
+    this.#listenClickEvent()
     this.#listenRippleEvent()
+    this.#initializeAttributes()
+  }
+
+  #initializeAttributes() {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'button')
+    }
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', this.#disabled ? '-1' : '0')
+    }
+  }
+
+  #listenClickEvent() {
+    this.addEventListener('click', () => {
+      if (this.#type === 'submit') {
+        this.#internals.form?.submit()
+      }
+      if (this.#type === 'reset') {
+        this.#internals.form?.reset()
+      }
+    })
   }
 
   #listenRippleEvent() {
@@ -63,23 +89,11 @@ export default class Button extends HTMLElement {
   }
 
   #render() {
-    const tabindex = this.#disabled ? -1 : 0
-
     this.shadowRoot.innerHTML = `
-      <button
-        ${this.#disabled ? 'disabled' : ''}
-        type="${this.#type}"
-        tabindex=${tabindex}
-      >
+      <button>
         <slot></slot>
         <max-ripple></max-ripple>
       </button>
     `
-
-    if (this.#disabled) {
-      this.style.pointerEvents = 'none'
-    } else {
-      this.style.pointerEvents = 'initial'
-    }
   }
 }

@@ -27,7 +27,7 @@ export default {
         value: ['button', 'submit', 'reset'],
       },
     },
-    disabled: {
+    ['aria-disabled']: {
       defaultValue: false,
       type: {
         name: 'boolean',
@@ -38,7 +38,7 @@ export default {
 
 export const Basic = (args) => {
   return html`
-    <max-button variant=${args.variant} color=${args.color} type=${args.type} ?disabled=${args.disabled}>
+    <max-button variant=${args.variant} color=${args.color} type=${args.type} ?aria-disabled=${args['aria-disabled']}>
       ${args.type}
     </max-button>
   `
