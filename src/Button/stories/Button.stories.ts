@@ -1,10 +1,16 @@
-import type { Meta } from '@storybook/web-components'
+import type { Meta, Story } from '@storybook/web-components'
 import { html } from 'lit-html'
+import ButtonDocs from './Button.mdx'
 import '../../theme/theme.css'
 import '..'
 
 export default {
   title: 'Components/Button',
+  parameters: {
+    docs: {
+      page: ButtonDocs,
+    },
+  },
   argTypes: {
     variant: {
       defaultValue: 'contained',
@@ -38,15 +44,52 @@ export default {
 
 export const Basic = (args) => {
   return html`
-    <button type="button" onclick="console.log(true)" onkeydown="console.log(false)">button</button>
     <max-button
-      onclick="console.log(true)"
       variant=${args.variant}
       color=${args.color}
       type=${args.type}
       ?disabled=${args.disabled}
+      aria-label=${args.type}
+      >${args.type}</max-button
     >
-      ${args.type}
-    </max-button>
   `
 }
+
+export const Variant: Story = () => html`
+  <div style="display: flex; column-gap: 16px;">
+    <max-button variant="contained">Contained</max-button>
+    <max-button variant="outlined">Outlined</max-button>
+    <max-button variant="text">Text</max-button>
+  </div>
+`
+
+export const Color: Story = () => html`
+  <div style="display: flex; column-gap: 16px;">
+    <max-button color="primary">Primary</max-button>
+    <max-button color="secondary" variant="outlined">Secondary</max-button>
+  </div>
+`
+
+export const Type: Story = () => html`
+  <div style="display: flex; flex-flow: column; row-gap: 16px;">
+    <max-button type="button">Plain Button</max-button>
+
+    <form action="https://foo.bar">
+      <input type="text" name="foo" />
+      <max-button type="submit">Submit</max-button>
+    </form>
+
+    <form>
+      <input type="text" name="foo" />
+      <max-button type="reset">Reset</max-button>
+    </form>
+  </div>
+`
+
+export const Disabled: Story = () => html`
+  <div style="display: flex; column-gap: 16px;">
+    <max-button variant="contained" disabled>Contained</max-button>
+    <max-button variant="outlined" disabled>Outlined</max-button>
+    <max-button variant="text" disabled>Text</max-button>
+  </div>
+`
