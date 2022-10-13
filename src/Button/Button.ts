@@ -37,7 +37,7 @@ export default class Button extends HTMLElement {
   attributeChangedCallback(attribute, _, newValue) {
     if (attribute === 'disabled') {
       const hasValue = newValue !== null
-      hasValue ? this.setAttribute('aria-disbaled', '') : this.removeAttribute('aria-disabled')
+      hasValue ? this.setAttribute('aria-disabled', '') : this.removeAttribute('aria-disabled')
     }
   }
 

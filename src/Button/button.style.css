@@ -17,7 +17,7 @@
 /* variant="contained" and color="primary" */
 :host([variant='contained'][color='primary']),
 :host([variant='contained']:not([color])),
-:host(:not([variant][color])),
+:host(:not([variant]):not([color])),
 :host(:not([variant])[color='primary']) {
   --max-button-bg: var(--max-palette-primary);
   --max-button-color: hsl(0, 0%, calc((var(--max-primary-l) - var(--contrast-threshold)) * -100));
@@ -49,8 +49,8 @@
 }
 
 /* variant="contained" and disabled */
-:host([variant='contained'][aria-disabled]),
-:host(:not(variant)[aria-disabled]) {
+:host([variant='contained'][disabled]),
+:host(:not([variant])[disabled]) {
   --max-button-bg: var(--max-bg-disabled);
   --max-button-color: var(--max-color-disabled);
 
@@ -83,7 +83,7 @@
 }
 
 /* variant="outlined" and disabled */
-:host([variant='outlined'][aria-disabled]) {
+:host([variant='outlined'][disabled]) {
   --max-button-color: var(--max-color-disabled);
   --max-button-border: 1px solid var(--max-bg-disabled);
 }
@@ -97,7 +97,7 @@
 /* --------------------------------------------------------------------------- */
 /* variant="text" and color="primary" */
 :host([variant='text'][color='primary']),
-:host([variant='text']:not(color)) {
+:host([variant='text']:not([color])) {
   --max-button-color: var(--max-palette-primary);
 
   --max-button-bg-hover: hsl(var(--max-primary-h), var(--max-primary-s), var(--max-primary-l), var(--max-alpha));
@@ -111,7 +111,7 @@
 }
 
 /* variant="text" and disabled */
-:host([variant='text'][aria-disabled]) {
+:host([variant='text'][disabled]) {
   --max-button-color: var(--max-color-disabled);
   --max-button-bg: transparent;
 }
