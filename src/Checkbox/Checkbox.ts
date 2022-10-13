@@ -1,6 +1,7 @@
 import styles from './checkbox.style.css' assert { type: 'css' }
 import type Ripple from '../Ripple/Ripple'
 import '../Ripple'
+import { insertAttributeToHTML } from '../utils'
 
 export default class Checkbox extends HTMLElement {
   static formAssociated = true
@@ -83,8 +84,24 @@ export default class Checkbox extends HTMLElement {
     })
 
     this.addEventListener('focus', () => {
-      if (this.#input.matches(':focus-visible')) {
+      if (this.matches(':focus-visible')) {
         this.#rippleRoot.start({ pulsate: true })
+      }
+    })
+
+    let pressing = false
+    this.addEventListener('keydown', ({ key }) => {
+      if ((key === 'Enter' || key === ' ') && !pressing) {
+        pressing = true
+        this.#rippleRoot.start({ center: true })
+      }
+    })
+
+    this.addEventListener('keyup', ({ key }) => {
+      if (key === 'Enter' || key === ' ') {
+        pressing = false
+        this.checked = !this.checked
+        this.#rippleRoot.stop()
       }
     })
 
@@ -122,7 +139,7 @@ export default class Checkbox extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <label>
         <div class="input-wrapper">
-          <input type="checkbox" tabindex="-1">
+          <input type="checkbox" tabindex="-1" ${insertAttributeToHTML({ checked: this.checked })}>
           <max-ripple center></max-ripple>
         </div>
         <slot></slot>
