@@ -74,6 +74,9 @@ export default class Checkbox extends HTMLElement {
     this.#listenInputEvent()
     this.#listenRippleEvent()
     this.#initializeAttributes()
+    if (this.hasAttribute('indeterminate')) {
+      if (this.#input) this.#input.indeterminate = true
+    }
   }
 
   #listenRippleEvent() {
@@ -91,14 +94,14 @@ export default class Checkbox extends HTMLElement {
 
     let pressing = false
     this.addEventListener('keydown', ({ key }) => {
-      if ((key === 'Enter' || key === ' ') && !pressing) {
+      if (key === ' ' && !pressing) {
         pressing = true
         this.#rippleRoot.start({ center: true })
       }
     })
 
     this.addEventListener('keyup', ({ key }) => {
-      if (key === 'Enter' || key === ' ') {
+      if (key === ' ') {
         pressing = false
         this.checked = !this.checked
         this.#rippleRoot.stop()
@@ -139,7 +142,10 @@ export default class Checkbox extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <label>
         <div class="input-wrapper">
-          <input type="checkbox" tabindex="-1" ${insertAttributeToHTML({ checked: this.checked })}>
+          <input type="checkbox" tabindex="-1" ${insertAttributeToHTML({
+            checked: this.getAttribute('checked'),
+            disabled: this.getAttribute('disabled'),
+          })}>
           <max-ripple center></max-ripple>
         </div>
         <slot></slot>

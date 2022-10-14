@@ -1,15 +1,13 @@
 :host {
   display: inline-flex;
   outline: none;
-
-  /* Default or primary color */
-  --max-checkbox-bg: var(--max-palette-primary);
-  --max-checkbox-bg-hover: hsl(var(--max-primary-h), var(--max-primary-s), var(--max-primary-l), var(--max-alpha));
 }
 
-:host([disabled]) {
-  pointer-events: none;
-  color: var(--max-color-disabled);
+/* Primary color */
+:host(:not([color])),
+:host([color='primary']) {
+  --max-checkbox-bg: var(--max-palette-primary);
+  --max-checkbox-bg-hover: hsl(var(--max-primary-h), var(--max-primary-s), var(--max-primary-l), var(--max-alpha));
 }
 
 /* Secondary color */
@@ -21,6 +19,11 @@
     var(--max-secondary-l),
     var(--max-alpha)
   );
+}
+
+:host([disabled]) {
+  pointer-events: none;
+  color: var(--max-color-disabled);
 }
 
 label {
