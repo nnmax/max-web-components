@@ -1,4 +1,5 @@
 import type { Meta, Story } from '@storybook/web-components'
+import { action } from '@storybook/addon-actions'
 import { html } from 'lit-html'
 import ButtonDocs from './Button.mdx'
 import '../../theme/theme.css'
@@ -50,6 +51,7 @@ export const Basic = (args) => {
       type=${args.type}
       ?disabled=${args.disabled}
       aria-label=${args.type}
+      @click=${action('click')}
       >${args.type}</max-button
     >
   `

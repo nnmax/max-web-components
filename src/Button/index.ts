@@ -1,3 +1,3 @@
 import Button from './Button'
 
-window.customElements.define('max-button', Button)
+window.customElements.define(Button.is, Button)

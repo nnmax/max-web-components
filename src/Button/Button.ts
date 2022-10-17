@@ -6,7 +6,7 @@ type ButtonType = 'button' | 'submit' | 'reset'
 
 export default class Button extends HTMLElement {
   static formAssociated = true
-
+  static is = 'max-button'
   #internals: ElementInternals
 
   constructor() {
@@ -22,7 +22,7 @@ export default class Button extends HTMLElement {
 
   // --------- attributes ----------
   static get observedAttributes() {
-    return ['disabled', 'type']
+    return ['disabled']
   }
 
   get #disabled() {
@@ -37,7 +37,13 @@ export default class Button extends HTMLElement {
   attributeChangedCallback(attribute, _, newValue) {
     if (attribute === 'disabled') {
       const hasValue = newValue !== null
-      hasValue ? this.setAttribute('aria-disabled', '') : this.removeAttribute('aria-disabled')
+      if (hasValue) {
+        this.toggleAttribute('aria-disabled', true)
+        this.setAttribute('tabindex', '-1')
+      } else {
+        this.toggleAttribute('aria-disabled', false)
+        this.setAttribute('tabindex', '0')
+      }
     }
   }
 
