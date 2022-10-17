@@ -1,3 +1,4 @@
+import { expect } from '@open-wc/testing'
 import insertAttributeToHTML from '../insertAttributeToHTML'
 
 describe('Testing insertAttributeToHTML.ts', () => {
@@ -10,9 +11,9 @@ describe('Testing insertAttributeToHTML.ts', () => {
         disabled: undefined,
         cba: 123,
       })
-    ).toBe('value name="foo" cba="123"')
+    ).to.be.eq('value name="foo" cba="123"')
 
     // @ts-expect-error Deliberately not passing in parameters to verify the correctness of the function
-    expect(insertAttributeToHTML()).toBe('')
+    expect(insertAttributeToHTML()).to.be.eq('')
   })
 })
