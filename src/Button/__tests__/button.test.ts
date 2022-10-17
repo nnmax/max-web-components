@@ -1,4 +1,4 @@
-import { expect, fixture, oneEvent, html } from '@open-wc/testing'
+import { elementUpdated, expect, fixture, oneEvent } from '@open-wc/testing'
 import Button from '../Button'
 import '..'
 
@@ -34,8 +34,6 @@ describe('Testing <max-button />', () => {
     ]
 
     tests.forEach(({ attribute, value }) => {
-      // TODO: @eslint-config overwrite test file
-      // eslint-disable-next-line max-nested-callbacks
       it(`should render a button with ${attribute} is ${value}`, () => {
         button.setAttribute(attribute, value)
         expect(button).dom.to.equalSnapshot()
@@ -44,11 +42,14 @@ describe('Testing <max-button />', () => {
   })
 
   it('when set disabled, should also set aria-disabled', async () => {
-    expect(button).to.not.have.attribute('disabled')
-    expect(button).to.not.have.attribute('aria-disabled')
-    button.toggleAttribute('disabled')
+    button.toggleAttribute('disabled', true)
+    await elementUpdated(button)
     expect(button).to.have.attribute('disabled')
     expect(button).to.have.attribute('aria-disabled')
+    button.toggleAttribute('disabled')
+    await elementUpdated(button)
+    expect(button).to.not.have.attribute('disabled')
+    expect(button).to.not.have.attribute('aria-disabled')
   })
 
   it('should render a button with role is `button`', () => {
@@ -59,21 +60,23 @@ describe('Testing <max-button />', () => {
     expect(button).to.have.attribute('tabindex', '0')
   })
 
-  it('should render a button with tabindex is -1 when set disabled', () => {
-    button.toggleAttribute('disabled')
+  it('should render a button with tabindex is -1 when set disabled', async () => {
+    const button = await fixture(`<max-button disabled>Button</max-button>`)
     expect(button).to.have.attribute('tabindex', '-1')
   })
 
-  describe('form', function () {
+  describe('form', () => {
     // TODO: wait for https://github.com/open-wc/open-wc/pull/2422
     it.skip('should can submit the form', async () => {
-      const form = await fixture(html`
+      const form = await fixture(`
         <form>
           <max-button type="submit">Submit</max-button>
         </form>
       `)
       const button = form.querySelector<Button>('max-button')
-      button.click()
+      setTimeout(() => {
+        button.click()
+      })
       const { type } = (await oneEvent(form, 'submit')) as SubmitEvent
       expect(type).to.be.eq('submit')
     })
@@ -85,12 +88,10 @@ describe('Testing <max-button />', () => {
         </form>
       `)
       const button = form.querySelector<Button>('max-button')
-      // TODO: @eslint-config overwrite test file
-      // eslint-disable-next-line max-nested-callbacks
       setTimeout(() => {
         button.click()
       })
-      const { type } = await oneEvent(form, 'reset')
+      const { type } = (await oneEvent(form, 'reset')) as Event
       expect(type).to.be.eq('reset')
     })
   })
