@@ -25,12 +25,8 @@ export default class Button extends HTMLElement {
     return ['disabled']
   }
 
-  get #disabled() {
-    return this.hasAttribute('disabled')
-  }
-
   get #type() {
-    return (this.getAttribute('type') as ButtonType) || 'button'
+    return this.getAttribute('type') as ButtonType
   }
   // --------- attributes ----------
 
@@ -59,7 +55,7 @@ export default class Button extends HTMLElement {
       this.setAttribute('role', 'button')
     }
     if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', this.#disabled ? '-1' : '0')
+      this.setAttribute('tabindex', '0')
     }
   }
 
