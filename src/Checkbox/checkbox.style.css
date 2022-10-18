@@ -1,6 +1,13 @@
 :host {
   display: inline-flex;
   outline: none;
+
+  --max-checkbox-indeterminate-bg: var(--max-palette-primary);
+  --max-checkbox-indeterminate-color: white;
+}
+
+:host([hidden]) {
+  display: none;
 }
 
 /* Primary color */
@@ -24,6 +31,9 @@
 :host([disabled]) {
   pointer-events: none;
   color: var(--max-color-disabled);
+
+  --max-checkbox-indeterminate-bg: #d1d1d1;
+  --max-checkbox-indeterminate-color: #ededed;
 }
 
 label {
@@ -68,7 +78,7 @@ input[type='checkbox']:indeterminate::before {
   display: block;
   width: calc(100% - 1px);
   height: calc(100% - 1px);
-  background-color: var(--max-checkbox-bg);
+  background-color: var(--max-checkbox-indeterminate-bg);
   border-radius: 2px;
 }
 
@@ -78,7 +88,7 @@ input[type='checkbox']:indeterminate::after {
   display: block;
   width: 55%;
   height: 2px;
-  background-color: white;
+  background-color: var(--max-checkbox-indeterminate-color);
   border: none;
   top: 50%;
   left: 50%;

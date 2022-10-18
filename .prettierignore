@@ -2,7 +2,7 @@ node_modules
 coverage
 # Yarn Integrity file
 .yarn-integrity
-
+**/__snapshots__/*
 .yarn/**
 yarn.lock
 

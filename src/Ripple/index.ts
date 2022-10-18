@@ -1,3 +1,3 @@
 import Ripple from './Ripple'
 
-window.customElements.define('max-ripple', Ripple)
+window.customElements.define(Ripple.is, Ripple)

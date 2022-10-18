@@ -58,8 +58,9 @@ export const Color: Story = () => html`
 `
 
 export const Disabled: Story = () => html`
-  <max-checkbox disabled>Unchecked Disabled</max-checkbox>
-  <max-checkbox checked disabled>Checked Disabled</max-checkbox>
+  <max-checkbox disabled></max-checkbox>
+  <max-checkbox checked disabled></max-checkbox>
+  <max-checkbox indeterminate disabled></max-checkbox>
 `
 
 export const Indeterminate: Story = () => html`

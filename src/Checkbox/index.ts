@@ -1,3 +1,3 @@
 import Checkbox from './Checkbox'
 
-window.customElements.define('max-checkbox', Checkbox)
+window.customElements.define(Checkbox.is, Checkbox)

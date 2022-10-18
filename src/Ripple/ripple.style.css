@@ -1,5 +1,5 @@
 :host {
-  --max-animation-easyInOut: cubic-bezier(0.4, 0, 0.2, 1);
+  --max-ripple-bg: currentColor;
 }
 
 @keyframes enterKeyframe {
@@ -72,7 +72,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: currentColor;
+  background-color: var(--max-ripple-bg);
 }
 
 .MaxRipple-root > .MaxRipple-child.exit > .MaxRipple-child-child {

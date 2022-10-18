@@ -9,6 +9,7 @@ type Options = {
 
 export default class Ripple extends HTMLElement {
   #rippleChildren: HTMLSpanElement[] = []
+  static is = 'max-ripple'
   #pulsateChild: HTMLSpanElement = null
 
   constructor() {
