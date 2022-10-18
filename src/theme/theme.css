@@ -14,4 +14,6 @@
 
   --max-color-disabled: rgba(0, 0, 0, 0.26);
   --max-bg-disabled: rgba(0, 0, 0, 0.12);
+
+  --max-animation-easyInOut: cubic-bezier(0.4, 0, 0.2, 1);
 }
