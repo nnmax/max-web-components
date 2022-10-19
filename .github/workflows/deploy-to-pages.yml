@@ -1,0 +1,52 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: ['main']
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: docs
+          fetch-depth: 0
+
+      - name: Rebase main
+        run: git rebase main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: cache-yarn
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build storybook
+        run: yarn build-storybook -o ./docs
+
+      - name: Commit docs files
+        run: |
+          git add docs
+          git -c user.name="Pages Bot" commit -m "chore: deploy to pages [skip ci]" --no-verify --quiet
+
+      - name: Push to Github
+        run: git push
