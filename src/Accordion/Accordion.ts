@@ -4,7 +4,7 @@ import AccordionPanel from './AccordionPanel'
 export default class Accordion extends HTMLElement {
   static is = 'max-accordion'
 
-  #panels: AccordionPanel[]
+  panels: AccordionPanel[]
 
   constructor() {
     super()
@@ -21,20 +21,34 @@ export default class Accordion extends HTMLElement {
     const slot = this.shadowRoot.querySelector('slot')
     slot.addEventListener('slotchange', this.#handleSlotChange.bind(this))
     this.addEventListener('keydown', this.#handleKeyDown.bind(this))
+    const container = this.shadowRoot.querySelector<HTMLDivElement>('div[part=container]')
+    container.addEventListener('expanded-changed', (event) => {
+      event.stopPropagation()
+      this.dispatchEvent(
+        new CustomEvent('expanded-changed', {
+          bubbles: true,
+          cancelable: false,
+          composed: true,
+          detail: {
+            value: this.panels.map((panel) => panel.expanded),
+          },
+        })
+      )
+    })
   }
 
   #handleSlotChange(event: Event) {
     const slot = event.target as HTMLSlotElement
-    this.#panels = this.#filterPanels(slot.assignedNodes())
+    this.panels = this.#filterPanels(slot.assignedNodes())
   }
 
   #handleKeyDown(event: KeyboardEvent) {
     const { key, metaKey, altKey } = event
 
-    if (metaKey || altKey || !this.#panels) return
+    if (metaKey || altKey || !this.panels) return
 
-    const focusedIndex = this.#panels.findIndex((node) => node.hasAttribute('focused'))
-    const length = this.#panels.length
+    const focusedIndex = this.panels.findIndex((node) => node.hasAttribute('focused'))
+    const length = this.panels.length
     let index = -1
 
     if (focusedIndex === -1) return
@@ -57,7 +71,7 @@ export default class Accordion extends HTMLElement {
   }
 
   #focusItem(index: number) {
-    this.#panels[index].focusButton()
+    this.panels[index].focusButton()
   }
 
   #filterPanels(nodes: Node[]): AccordionPanel[] {

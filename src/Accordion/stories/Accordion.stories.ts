@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions'
 import type { Meta, Story } from '@storybook/web-components'
 import { html } from 'lit-html'
 import '..'
@@ -8,7 +9,7 @@ export default {
 
 export const Basic: Story = () => html`
   <div style="padding: 30px; background: #E7EBF0;">
-    <max-accordion>
+    <max-accordion @expanded-changed=${action('expanded-changed')}>
       <max-accordion-panel>
         <div slot="heading">Accordion Title 1</div>
         Accordion Content 1<br />

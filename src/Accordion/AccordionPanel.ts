@@ -82,6 +82,16 @@ export default class AccordionPanel extends HTMLElement {
     }
     this.expanded = expanded
     this.#button.ariaExpanded = String(expanded)
+    this.dispatchEvent(
+      new CustomEvent('expanded-changed', {
+        bubbles: true,
+        cancelable: false,
+        composed: true,
+        detail: {
+          value: expanded,
+        },
+      })
+    )
   }
 
   #handleKeyDown(event: KeyboardEvent) {
