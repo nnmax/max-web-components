@@ -73,3 +73,36 @@ jobs:
 
       - name: Prettier
         run: yarn prettier:ci
+
+  test:
+    name: Test Code
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Restore node_modules
+        uses: actions/cache@v3
+        id: cache-yarn
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Test
+        run: yarn test

@@ -22,24 +22,27 @@ export default class Accordion extends HTMLElement {
     slot.addEventListener('slotchange', this.#handleSlotChange.bind(this))
     this.addEventListener('keydown', this.#handleKeyDown.bind(this))
     const container = this.shadowRoot.querySelector<HTMLDivElement>('div[part=container]')
-    container.addEventListener('expanded-changed', (event) => {
-      event.stopPropagation()
-      this.dispatchEvent(
-        new CustomEvent('expanded-changed', {
-          bubbles: true,
-          cancelable: false,
-          composed: true,
-          detail: {
-            value: this.panels.map((panel) => panel.expanded),
-          },
-        })
-      )
-    })
+    container.addEventListener('expanded-changed', this.#handleExpandedChanged.bind(this))
   }
 
   #handleSlotChange(event: Event) {
     const slot = event.target as HTMLSlotElement
-    this.panels = this.#filterPanels(slot.assignedNodes())
+    const elements = slot.assignedElements()
+    this.panels = this.#filterPanels(elements)
+  }
+
+  #handleExpandedChanged(event: CustomEvent<{ value: boolean }>) {
+    event.stopPropagation()
+    this.dispatchEvent(
+      new CustomEvent('expanded-changed', {
+        bubbles: true,
+        cancelable: false,
+        composed: true,
+        detail: {
+          value: this.panels.map((panel) => panel.expanded),
+        },
+      })
+    )
   }
 
   #handleKeyDown(event: KeyboardEvent) {
@@ -47,8 +50,17 @@ export default class Accordion extends HTMLElement {
 
     if (metaKey || altKey || !this.panels) return
 
-    const focusedIndex = this.panels.findIndex((node) => node.hasAttribute('focused'))
-    const length = this.panels.length
+    const enable = this.panels.filter((panel) => !panel.disabled)
+    const focusedIndex = enable.findIndex((node) => node.hasAttribute('focused'))
+    const length = enable.length
+    const nextIndex = this.#getFocusIndex(focusedIndex, key, length)
+
+    if (nextIndex >= 0 || nextIndex <= length) {
+      enable[nextIndex].focusButton()
+    }
+  }
+
+  #getFocusIndex(focusedIndex: number, key: string, length: number) {
     let index = -1
 
     if (focusedIndex === -1) return
@@ -65,18 +77,12 @@ export default class Accordion extends HTMLElement {
       index = length - 1
     }
 
-    if (index >= 0) {
-      this.#focusItem(index)
-    }
+    return index
   }
 
-  #focusItem(index: number) {
-    this.panels[index].focusButton()
-  }
-
-  #filterPanels(nodes: Node[]): AccordionPanel[] {
-    if (Array.isArray(nodes)) {
-      return nodes.filter((node) => node instanceof AccordionPanel && !node.disabled) as AccordionPanel[]
+  #filterPanels(elements: Element[]): AccordionPanel[] {
+    if (Array.isArray(elements)) {
+      return elements.filter((element) => element instanceof AccordionPanel) as AccordionPanel[]
     }
     return []
   }
