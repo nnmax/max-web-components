@@ -22,6 +22,7 @@ export default class AccordionPanel extends HTMLElement {
   }
   set expanded(expanded) {
     this.toggleAttribute('expanded', expanded)
+    this.#toggleExpanded(expanded)
   }
 
   get disabled() {
@@ -71,16 +72,14 @@ export default class AccordionPanel extends HTMLElement {
 
   #handleButtonClick() {
     if (!this.disabled) {
-      this.#toggleExpanded()
+      this.expanded = !this.expanded
     }
   }
 
-  #toggleExpanded() {
-    const expanded = !this.expanded
+  #toggleExpanded(expanded: boolean) {
     if (expanded) {
       this.#contentContainer.style.setProperty('--content-height', this.#contentHeight)
     }
-    this.expanded = expanded
     this.#button.ariaExpanded = String(expanded)
     this.dispatchEvent(
       new CustomEvent('expanded-changed', {
@@ -95,9 +94,11 @@ export default class AccordionPanel extends HTMLElement {
   }
 
   #handleKeyDown(event: KeyboardEvent) {
+    if (this.disabled) return
+
     const { key } = event
     if (key === ' ' || key === 'Enter') {
-      this.#toggleExpanded()
+      this.expanded = !this.expanded
     }
   }
 
@@ -119,10 +120,6 @@ export default class AccordionPanel extends HTMLElement {
     if (attribute === 'disabled') {
       this.#button.ariaDisabled = String(this.disabled)
       this.#button.tabIndex = this.disabled ? -1 : 0
-    }
-
-    if (attribute === 'expanded') {
-      this.#button.ariaExpanded = String(this.expanded)
     }
   }
 }
