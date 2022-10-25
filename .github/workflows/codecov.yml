@@ -1,0 +1,39 @@
+name: Codecov workflow
+
+on:
+  push:
+    branches: ['main']
+
+  pull_request:
+    branches: ['main']
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: cache-yarn
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run tests and collect coverage
+        run: yarn test --coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
