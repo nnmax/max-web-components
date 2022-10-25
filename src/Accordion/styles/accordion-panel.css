@@ -1,0 +1,68 @@
+:host {
+  position: relative;
+  display: block;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  margin: 0;
+  transition: margin 0.3s;
+  background-color: #fff;
+}
+
+:host([hidden]) {
+  display: none !important;
+}
+
+:host([disabled]) {
+  pointer-events: none;
+  background-color: var(--max-bg-disabled);
+}
+
+:host([disabled])::part(heading-button) {
+  color: var(--max-color-disabled);
+}
+
+:host(:first-of-type) {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+:host(:last-of-type) {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+:host([expanded]) {
+  margin: 16px 0;
+}
+
+:host([expanded]:first-of-type) {
+  margin-top: 0;
+}
+
+:host([expanded]:last-of-type) {
+  margin-bottom: 0;
+}
+
+:host::part(heading-button) {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  min-height: 48px;
+  cursor: pointer;
+  padding: 0 16px;
+  user-select: none;
+}
+
+:host::part(content-wrapper) {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+:host([expanded])::part(content-wrapper) {
+  height: var(--content-height);
+}
+
+:host::part(content) {
+  padding: 8px 16px 16px;
+}
