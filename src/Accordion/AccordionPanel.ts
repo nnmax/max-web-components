@@ -21,7 +21,6 @@ export default class AccordionPanel extends HTMLElement {
     return this.hasAttribute('expanded')
   }
   set expanded(expanded) {
-    this.toggleAttribute('expanded', expanded)
     this.#toggleExpanded(expanded)
   }
 
@@ -80,6 +79,7 @@ export default class AccordionPanel extends HTMLElement {
     if (expanded) {
       this.#contentContainer.style.setProperty('--content-height', this.#contentHeight)
     }
+    this.toggleAttribute('expanded', expanded)
     this.#button.ariaExpanded = String(expanded)
     this.dispatchEvent(
       new CustomEvent('expanded-changed', {
