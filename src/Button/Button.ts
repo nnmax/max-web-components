@@ -25,21 +25,26 @@ export default class Button extends HTMLElement {
     return ['disabled']
   }
 
-  get #type() {
-    return this.getAttribute('type') as ButtonType
+  get type() {
+    return (this.getAttribute('type') as ButtonType) || 'button'
+  }
+  set type(type) {
+    this.setAttribute('type', type)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+  set disabled(disabled) {
+    this.toggleAttribute('disabled', disabled)
   }
   // --------- attributes ----------
 
-  attributeChangedCallback(attribute, _, newValue) {
+  attributeChangedCallback(attribute, oldValue, newValue) {
+    if (oldValue === newValue) return
+
     if (attribute === 'disabled') {
-      const hasValue = newValue !== null
-      if (hasValue) {
-        this.toggleAttribute('aria-disabled', true)
-        this.setAttribute('tabindex', '-1')
-      } else {
-        this.toggleAttribute('aria-disabled', false)
-        this.setAttribute('tabindex', '0')
-      }
+      this.#handleDisabledChanged(newValue !== null)
     }
   }
 
@@ -48,6 +53,11 @@ export default class Button extends HTMLElement {
     this.#listenClickEvent()
     this.#listenRippleEvent()
     this.#initializeAttributes()
+  }
+
+  #handleDisabledChanged(disabled: boolean) {
+    this.ariaDisabled = String(disabled)
+    this.tabIndex = disabled ? -1 : 0
   }
 
   #initializeAttributes() {
@@ -61,10 +71,10 @@ export default class Button extends HTMLElement {
 
   #listenClickEvent() {
     this.addEventListener('click', () => {
-      if (this.#type === 'submit') {
+      if (this.type === 'submit') {
         this.#internals.form?.submit()
       }
-      if (this.#type === 'reset') {
+      if (this.type === 'reset') {
         this.#internals.form?.reset()
       }
     })
@@ -113,10 +123,10 @@ export default class Button extends HTMLElement {
 
   #render() {
     this.shadowRoot.innerHTML = `
-      <button tabindex="-1">
+      <span part="label">
         <slot></slot>
+      </span>
         <max-ripple></max-ripple>
-      </button>
     `
   }
 }
