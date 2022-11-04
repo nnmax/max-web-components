@@ -6,6 +6,17 @@ export default class Accordion extends HTMLElement {
 
   panels: AccordionPanel[]
 
+  static get observedAttributes() {
+    return ['heading-level']
+  }
+
+  get headingLevel() {
+    return this.getAttribute('heading-level')
+  }
+  set headingLevel(headingLevel) {
+    this.setAttribute('heading-level', headingLevel)
+  }
+
   constructor() {
     super()
     this.attachShadow({ mode: 'open' })
@@ -25,10 +36,28 @@ export default class Accordion extends HTMLElement {
     container.addEventListener('expanded-changed', this.#handleExpandedChanged.bind(this))
   }
 
+  attributeChangedCallback(attribute, oldValue, newValue) {
+    if (oldValue === newValue) return
+
+    if (attribute === 'heading-level') {
+      this.headingLevel = newValue
+      this.#injectHeadingLevel(newValue)
+    }
+  }
+
+  #injectHeadingLevel(headingLevel: string) {
+    if (headingLevel && this.panels) {
+      this.panels.forEach((panel) => {
+        panel.headingLevel = headingLevel
+      })
+    }
+  }
+
   #handleSlotChange(event: Event) {
     const slot = event.target as HTMLSlotElement
     const elements = slot.assignedElements()
     this.panels = this.#filterPanels(elements)
+    this.#injectHeadingLevel(this.headingLevel)
   }
 
   #handleExpandedChanged(event: CustomEvent<{ value: boolean }>) {
