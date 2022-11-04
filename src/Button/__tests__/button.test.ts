@@ -39,6 +39,10 @@ describe('Testing <max-button />', () => {
         expect(button).dom.to.equalSnapshot()
       })
     })
+
+    it('shadowDom', () => {
+      expect(button).shadowDom.to.equalSnapshot()
+    })
   })
 
   it('when set disabled attribute, should also set aria-disabled attrubute', async () => {
@@ -70,6 +74,13 @@ describe('Testing <max-button />', () => {
     const button = await fixture(`<max-button disabled>Button</max-button>`)
     expect(button).to.have.attribute('tabindex', '-1')
     expect(button).to.have.property('tabIndex', -1)
+  })
+
+  it('type is button', () => {
+    expect(button).to.have.property('type', 'button')
+    button.type = 'submit'
+    expect(button).to.have.property('type', 'submit')
+    expect(button).to.have.attribute('type', 'submit')
   })
 
   describe('form', () => {
