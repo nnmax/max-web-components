@@ -119,7 +119,7 @@
 /* --------------------------- text text text text --------------------------- */
 /* --------------------------------------------------------------------------- */
 
-button {
+:host {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -144,12 +144,12 @@ button {
   border: var(--max-button-border, none);
 }
 
-button:hover {
+:host(:hover) {
   background-color: var(--max-button-bg-hover, var(--max-button-bg, transparent));
   border: var(--max-button-border-hover, var(--max-button-border, none));
   box-shadow: var(--max-button-shadow-hover, var(--max-button-shadow, none));
 }
 
-button:active {
+:host(:active) {
   box-shadow: var(--max-button-shadow-active, var(--max-button-shadow, none));
 }

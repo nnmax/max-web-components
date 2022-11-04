@@ -39,17 +39,26 @@ describe('Testing <max-button />', () => {
         expect(button).dom.to.equalSnapshot()
       })
     })
+
+    it('shadowDom', () => {
+      expect(button).shadowDom.to.equalSnapshot()
+    })
   })
 
-  it('when set disabled, should also set aria-disabled', async () => {
+  it('when set disabled attribute, should also set aria-disabled attrubute', async () => {
     button.toggleAttribute('disabled', true)
     await elementUpdated(button)
     expect(button).to.have.attribute('disabled')
+    expect(button).to.have.property('disabled', true)
     expect(button).to.have.attribute('aria-disabled')
-    button.toggleAttribute('disabled')
+    expect(button).to.have.property('ariaDisabled', 'true')
+
+    button.disabled = false
     await elementUpdated(button)
     expect(button).to.not.have.attribute('disabled')
-    expect(button).to.not.have.attribute('aria-disabled')
+    expect(button).to.have.property('disabled', false)
+    expect(button).to.have.attribute('aria-disabled', 'false')
+    expect(button).to.have.property('ariaDisabled', 'false')
   })
 
   it('should render a button with role is `button`', () => {
@@ -57,12 +66,21 @@ describe('Testing <max-button />', () => {
   })
 
   it('should render a button with tabindex is 0', () => {
+    expect(button).to.have.property('tabIndex', 0)
     expect(button).to.have.attribute('tabindex', '0')
   })
 
   it('should render a button with tabindex is -1 when set disabled', async () => {
     const button = await fixture(`<max-button disabled>Button</max-button>`)
     expect(button).to.have.attribute('tabindex', '-1')
+    expect(button).to.have.property('tabIndex', -1)
+  })
+
+  it('type is button', () => {
+    expect(button).to.have.property('type', 'button')
+    button.type = 'submit'
+    expect(button).to.have.property('type', 'submit')
+    expect(button).to.have.attribute('type', 'submit')
   })
 
   describe('form', () => {
