@@ -9,7 +9,7 @@ export default {
 
 export const Basic: Story = () => html`
   <div style="padding: 30px; background: #E7EBF0;">
-    <max-accordion @expanded-changed=${action('expanded-changed')}>
+    <max-accordion @expanded-changed=${action('expanded-changed')} heading-level="2">
       <max-accordion-panel>
         <div slot="heading">Accordion Title 1</div>
         Accordion Content 1<br />

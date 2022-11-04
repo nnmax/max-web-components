@@ -31,6 +31,17 @@ export default class AccordionPanel extends HTMLElement {
     this.toggleAttribute('disabled', disabled)
   }
 
+  #headingLevel: string | null = null
+  get headingLevel() {
+    return this.#headingLevel
+  }
+  set headingLevel(headingLevel) {
+    this.#headingLevel = headingLevel
+    if (!headingLevel) return
+    const heading = this.shadowRoot.querySelector('[role=heading]')
+    heading.ariaLevel = headingLevel
+  }
+
   get #contentHeight() {
     return `${this.shadowRoot.querySelector<HTMLDivElement>('div[part=content]').clientHeight}px`
   }
