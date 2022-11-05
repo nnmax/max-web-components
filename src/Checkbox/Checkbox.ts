@@ -1,77 +1,99 @@
 import styles from './checkbox.style.css' assert { type: 'css' }
 import type Ripple from '../Ripple/Ripple'
 import '../Ripple'
-import { insertAttributeToHTML } from '../utils'
 
 export default class Checkbox extends HTMLElement {
-  static formAssociated = true
   static is = 'max-checkbox'
-  #internals: ElementInternals
 
   constructor() {
     super()
 
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.adoptedStyleSheets.push(styles)
-    this.#internals = this.attachInternals()
 
-    this.#render()
+    this.shadowRoot.innerHTML = `
+      <div part="icon-wrapper">
+        <div part="icon"></div>
+        <max-ripple center></max-ripple>
+      </div>
+      <slot></slot>
+    `
   }
 
   get #rippleRoot() {
     return this.shadowRoot.querySelector<Ripple>('max-ripple')
   }
 
-  get #input() {
-    return this.shadowRoot.querySelector('input')
-  }
-
   // ---------- attributes ------------------
-  get value() {
-    return this.getAttribute('value') || 'on'
-  }
-  get name() {
-    return this.getAttribute('name')
-  }
   get checked() {
     return this.hasAttribute('checked')
   }
   set checked(checked) {
     this.toggleAttribute('checked', checked)
   }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+  set disabled(disabled) {
+    this.toggleAttribute('disabled', disabled)
+  }
+
+  get indeterminate() {
+    return this.hasAttribute('indeterminate')
+  }
+  set indeterminate(indeterminate) {
+    this.toggleAttribute('indeterminate', indeterminate)
+  }
   // ---------- attributes ------------------
 
   static get observedAttributes() {
-    return ['value', 'checked', 'indeterminate', 'disabled']
+    return ['checked', 'indeterminate', 'disabled']
   }
 
-  attributeChangedCallback(attribute, _, newValue) {
-    if (attribute === 'indeterminate') {
-      const hasIndeterminate = newValue !== null
-      this.#input.indeterminate = hasIndeterminate
-      this.setAttribute('aria-checked', hasIndeterminate ? 'mixed' : String(this.checked))
-    }
+  attributeChangedCallback(attribute, oldValue, newValue) {
+    if (oldValue === newValue) return
+
+    const hasValue = newValue !== null
     if (attribute === 'checked') {
-      const hasChecked = newValue !== null
-      this.#internals.setFormValue(hasChecked ? this.value : undefined, hasChecked ? 'checked' : undefined)
-      this.setAttribute('aria-checked', String(hasChecked))
-      this.#input.checked = hasChecked
-    }
-    if (attribute === 'value') {
-      this.#internals.setFormValue(this.checked ? this.value : undefined, this.checked ? 'checked' : undefined)
-    }
-    if (attribute === 'disabled') {
-      const hasDisabled = newValue !== null
-      this.setAttribute('aria-disabled', String(hasDisabled))
-      this.setAttribute('tabindex', hasDisabled ? '-1' : '0')
-      this.#input.disabled = hasDisabled
+      this.#handleCheckedChanged(hasValue)
+    } else if (attribute === 'disabled') {
+      this.#handleDisabledChanged(hasValue)
+    } else if (attribute === 'indeterminate') {
+      this.#handleIndeterminateChanged(hasValue)
     }
   }
 
   connectedCallback() {
-    this.#listenInputEvent()
     this.#listenRippleEvent()
     this.#initializeAttributes()
+
+    this.addEventListener('click', () => {
+      this.#toggleChecked()
+    })
+
+    this.addEventListener('keyup', (event) => {
+      if (event.key === ' ') {
+        this.#toggleChecked()
+      }
+    })
+  }
+
+  #toggleChecked() {
+    this.checked = this.indeterminate || !this.checked
+  }
+
+  #handleCheckedChanged(checked: boolean) {
+    this.ariaChecked = String(checked)
+  }
+
+  #handleDisabledChanged(disabled: boolean) {
+    this.ariaDisabled = String(disabled)
+    this.tabIndex = disabled ? -1 : 0
+  }
+
+  #handleIndeterminateChanged(indeterminate: boolean) {
+    this.ariaChecked = indeterminate ? 'mixed' : String(this.checked)
   }
 
   #listenRippleEvent() {
@@ -98,7 +120,6 @@ export default class Checkbox extends HTMLElement {
     this.addEventListener('keyup', ({ key }) => {
       if (key === ' ') {
         pressing = false
-        this.checked = !this.checked
         this.#rippleRoot.stop()
       }
     })
@@ -116,12 +137,6 @@ export default class Checkbox extends HTMLElement {
     })
   }
 
-  #listenInputEvent() {
-    this.#input.addEventListener('input', (event) => {
-      this.checked = (event.target as HTMLInputElement).checked
-    })
-  }
-
   #initializeAttributes() {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'checkbox')
@@ -129,20 +144,5 @@ export default class Checkbox extends HTMLElement {
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0')
     }
-  }
-
-  #render() {
-    this.shadowRoot.innerHTML = `
-      <label>
-        <div class="input-wrapper">
-          <input type="checkbox" tabindex="-1" ${insertAttributeToHTML({
-            checked: this.getAttribute('checked'),
-            disabled: this.getAttribute('disabled'),
-          })}>
-          <max-ripple center></max-ripple>
-        </div>
-        <slot></slot>
-      </label>
-    `
   }
 }

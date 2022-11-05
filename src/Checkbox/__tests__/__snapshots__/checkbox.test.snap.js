@@ -48,18 +48,14 @@ snapshots["testing <max-checkbox /> snapshots should render a button with checke
 /* end snapshot testing <max-checkbox /> snapshots should render a button with checked is checked */
 
 snapshots["testing <max-checkbox /> snapshots checked shadowRoot"] = 
-`<label>
-  <div class="input-wrapper">
-    <input
-      tabindex="-1"
-      type="checkbox"
-    >
-    <max-ripple center="">
-    </max-ripple>
+`<div part="icon-wrapper">
+  <div part="icon">
   </div>
-  <slot>
-  </slot>
-</label>
+  <max-ripple center="">
+  </max-ripple>
+</div>
+<slot>
+</slot>
 `;
 /* end snapshot testing <max-checkbox /> snapshots checked shadowRoot */
 
@@ -76,19 +72,14 @@ snapshots["testing <max-checkbox /> snapshots should render a button with disabl
 /* end snapshot testing <max-checkbox /> snapshots should render a button with disabled is disabled */
 
 snapshots["testing <max-checkbox /> snapshots disabled shadowRoot"] = 
-`<label>
-  <div class="input-wrapper">
-    <input
-      disabled=""
-      tabindex="-1"
-      type="checkbox"
-    >
-    <max-ripple center="">
-    </max-ripple>
+`<div part="icon-wrapper">
+  <div part="icon">
   </div>
-  <slot>
-  </slot>
-</label>
+  <max-ripple center="">
+  </max-ripple>
+</div>
+<slot>
+</slot>
 `;
 /* end snapshot testing <max-checkbox /> snapshots disabled shadowRoot */
 
