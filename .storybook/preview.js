@@ -1,3 +1,5 @@
+import { html } from 'lit-html'
+
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -7,3 +9,5 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [(story) => html`<div style="margin: 5em;">${story()}</div>`]

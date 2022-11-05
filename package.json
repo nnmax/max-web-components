@@ -18,7 +18,8 @@
     "prettier:ci": "prettier --check .",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
-    "postpack": "pinst --enable"
+    "postpack": "pinst --enable",
+    "analyze": "custom-elements-manifest analyze --config \"custom-elements-manifest.config.mjs\""
   },
   "dependencies": {
     "lit-html": "^2.4.0"

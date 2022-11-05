@@ -1,42 +1,16 @@
-import { Story, Canvas } from '@storybook/addon-docs'
+import { Story, Canvas, ArgsTable } from '@storybook/addon-docs'
 
 # Button
 
 按钮是提供给用户触发某种事件或某种操作的最小组件。比如，打开对话框、执行取消操作、执行删除操作和提交表单等。
 
-## Variant
-
-我们提供了以下三种不同类型的按钮，用于区分 UI 中不同重要性的操作。
+## Demos
 
 <Canvas withToolbar withSource="open">
-  <Story id="components-button--variant" />
+  <Story id="components-button--collection" />
 </Canvas>
 
-## Color
-
-通过 `color` 属性来设置不同的颜色。目前只支持以下两种颜色。
-
-<Canvas withToolbar withSource="open">
-  <Story id="components-button--color" />
-</Canvas>
-
-## Type
-
-为按钮设置不同的功能类型，比如：提交表单、重置表单。可选值请看 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type)。
-
-<Canvas withToolbar withSource="open">
-  <Story id="components-button--type" />
-</Canvas>
-
-## Disabled
-
-Disabled 状态代表当前操作对用户不可用。该状态的按钮会变成灰暗色，并被排除在焦点顺序之外（例如无法点击和使用 <kbd>Tab</kbd> 键获取焦点）。
-
-<Canvas withToolbar withSource="open">
-  <Story id="components-button--disabled" />
-</Canvas>
-
-## ARIA
+## 最佳实践
 
 (WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/button/)
 
@@ -49,3 +23,5 @@ Disabled 状态代表当前操作对用户不可用。该状态的按钮会变�
   - 使用键盘操作按钮并打开一个对话框，则键盘焦点应该被转移到对话框内。
 
   - 对话框关闭后，键盘焦点应该回到打开对话框的按钮上。
+
+- 如果按钮的作用是打开对话框或确认框等弹出的元素，建议使用 ... 后缀以提示用户该按钮是可以出发弹出层的。

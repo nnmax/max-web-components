@@ -126,7 +126,7 @@ export default class Button extends HTMLElement {
       <span part="label">
         <slot></slot>
       </span>
-        <max-ripple></max-ripple>
+      <max-ripple></max-ripple>
     `
   }
 }

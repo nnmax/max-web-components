@@ -1,0 +1,1001 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Accordion/Accordion.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Accordion",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'max-accordion'"
+            },
+            {
+              "kind": "field",
+              "name": "panels",
+              "type": {
+                "text": "AccordionPanel[]"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "headingLevel"
+            },
+            {
+              "kind": "method",
+              "name": "#injectHeadingLevel",
+              "parameters": [
+                {
+                  "name": "headingLevel",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#handleSlotChange",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#handleExpandedChanged",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<{ value: boolean }>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#handleKeyDown",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#getFocusIndex",
+              "parameters": [
+                {
+                  "name": "focusedIndex",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "key",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "length",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#filterPanels",
+              "return": {
+                "type": {
+                  "text": "AccordionPanel[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elements",
+                  "type": {
+                    "text": "Element[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML",
+              "default": "`\n      <div part=\"container\">\n        <slot></slot>\n      </div>\n    `"
+            }
+          ],
+          "events": [
+            {
+              "name": "expanded-changed",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "heading-level"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Accordion",
+            "module": "src/Accordion/Accordion.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Accordion/AccordionPanel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AccordionPanel",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'max-accordion-panel'"
+            },
+            {
+              "kind": "field",
+              "name": "#button",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#contentContainer",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "expanded"
+            },
+            {
+              "kind": "field",
+              "name": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "#headingLevel",
+              "privacy": "private",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "headingLevel"
+            },
+            {
+              "kind": "field",
+              "name": "#contentHeight",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#handleButtonClick"
+            },
+            {
+              "kind": "method",
+              "name": "#toggleExpanded",
+              "parameters": [
+                {
+                  "name": "expanded",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#handleKeyDown",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#handleFocus"
+            },
+            {
+              "kind": "method",
+              "name": "#handleBlur"
+            },
+            {
+              "kind": "method",
+              "name": "focusButton"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML",
+              "default": "`\n      <div part=\"panel\">\n        <div role=\"heading\" part=\"heading\">\n          <div\n            role=\"button\"\n            part=\"heading-button\"\n            tabindex=\"0\"\n            aria-controls=${id}\n          >\n            <slot name=\"heading\"></slot>\n          </div>\n        </div>\n        <div part=\"content-wrapper\">\n          <div part=\"content\" id=${id}>\n            <slot></slot>\n          </div>\n        </div>\n      </div>\n    `"
+            }
+          ],
+          "events": [
+            {
+              "name": "expanded-changed",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled"
+            },
+            {
+              "name": "expanded"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "AccordionPanel",
+            "module": "src/Accordion/AccordionPanel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Accordion/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "Accordion",
+            "module": "/src/Accordion/Accordion"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "AccordionPanel",
+            "module": "/src/Accordion/AccordionPanel"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Checkbox/Checkbox.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Checkbox",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'max-checkbox'"
+            },
+            {
+              "kind": "field",
+              "name": "#rippleRoot",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "checked"
+            },
+            {
+              "kind": "field",
+              "name": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "indeterminate"
+            },
+            {
+              "kind": "method",
+              "name": "#toggleChecked"
+            },
+            {
+              "kind": "method",
+              "name": "#handleCheckedChanged",
+              "parameters": [
+                {
+                  "name": "checked",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#handleDisabledChanged",
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#handleIndeterminateChanged",
+              "parameters": [
+                {
+                  "name": "indeterminate",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#listenRippleEvent"
+            },
+            {
+              "kind": "method",
+              "name": "#initializeAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML",
+              "default": "`\n      <div part=\"icon-wrapper\">\n        <div part=\"icon\"></div>\n        <max-ripple center></max-ripple>\n      </div>\n      <slot></slot>\n    `"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "checked"
+            },
+            {
+              "name": "indeterminate"
+            },
+            {
+              "name": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Checkbox",
+            "module": "src/Checkbox/Checkbox.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Checkbox/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "Checkbox",
+            "module": "/src/Checkbox/Checkbox"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Ripple/Ripple.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Ripple",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#rippleChildren",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLSpanElement[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'max-ripple'"
+            },
+            {
+              "kind": "field",
+              "name": "#pulsateChild",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLSpanElement"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "center"
+            },
+            {
+              "kind": "field",
+              "name": "rippleRoot"
+            },
+            {
+              "kind": "method",
+              "name": "render"
+            },
+            {
+              "kind": "method",
+              "name": "createRippleChild",
+              "parameters": [
+                {
+                  "name": "rect",
+                  "type": {
+                    "text": "Pick<CSSStyleDeclaration, 'width' | 'height' | 'top' | 'left'>"
+                  }
+                }
+              ],
+              "description": "创建以下结构：\n  <span class=\"MaxRipple-child enter\">\n    <span class=\"MaxRipple-child-child\"></span>\n  </span>"
+            },
+            {
+              "kind": "method",
+              "name": "start",
+              "parameters": [
+                {
+                  "name": "options",
+                  "type": {
+                    "text": "Options"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "stop",
+              "parameters": [
+                {
+                  "name": "isPulsate",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "adoptedStyleSheets",
+              "type": {
+                "text": "array"
+              },
+              "default": "[styles]"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "center"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Ripple",
+            "module": "src/Ripple/Ripple.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Ripple/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "Ripple",
+            "module": "/src/Ripple/Ripple"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Button/Button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Button",
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'max-button'"
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "type": {
+                "text": "ElementInternals"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#rippleRoot",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "type"
+            },
+            {
+              "kind": "field",
+              "name": "disabled"
+            },
+            {
+              "kind": "method",
+              "name": "#handleDisabledChanged",
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#initializeAttributes"
+            },
+            {
+              "kind": "method",
+              "name": "#listenClickEvent"
+            },
+            {
+              "kind": "method",
+              "name": "#listenRippleEvent"
+            },
+            {
+              "kind": "method",
+              "name": "#render"
+            },
+            {
+              "kind": "field",
+              "name": "adoptedStyleSheets",
+              "type": {
+                "text": "array"
+              },
+              "default": "[styles]"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Button",
+            "module": "src/Button/Button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/Button/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "Button",
+            "module": "/src/Button/Button"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/TextField/TextField.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TextField",
+          "members": [
+            {
+              "kind": "field",
+              "name": "is",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'max-text-field'"
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "#internals",
+              "privacy": "private",
+              "type": {
+                "text": "ElementInternals"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#rippleRoot",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#input",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#value",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "value"
+            },
+            {
+              "kind": "field",
+              "name": "#required",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#hasDefaultAriaLabel",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "hasAriaLabel"
+            },
+            {
+              "kind": "method",
+              "name": "#listenRippleEvent"
+            },
+            {
+              "kind": "method",
+              "name": "#listenUserEvent"
+            },
+            {
+              "kind": "method",
+              "name": "#handleFocus"
+            },
+            {
+              "kind": "method",
+              "name": "#handleBlur"
+            },
+            {
+              "kind": "method",
+              "name": "#handleInput",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setHelperText",
+              "parameters": [
+                {
+                  "name": "text",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "blur",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "innerHTML",
+              "default": "`\n      <label part=\"label\" for=\"input\"></label>\n      <div part=\"input-container\">\n        <input part=\"input\" type=\"text\" id=\"input\">\n        <max-ripple></max-ripple>\n      </div>\n      <div part=\"helper-text\"></div>\n    `"
+            }
+          ],
+          "events": [
+            {
+              "name": "focus",
+              "type": {
+                "text": "FocusEvent"
+              }
+            },
+            {
+              "name": "blur",
+              "type": {
+                "text": "FocusEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label"
+            },
+            {
+              "name": "placeholder"
+            },
+            {
+              "name": "helper-text"
+            },
+            {
+              "name": "maxlength"
+            },
+            {
+              "name": "minlength"
+            },
+            {
+              "name": "required"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "TextField",
+            "module": "src/TextField/TextField.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/TextField/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "declaration": {
+            "name": "TextField",
+            "module": "/src/TextField/TextField"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/generateId.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "generateId",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "parameters": [
+            {
+              "name": "prefix",
+              "optional": true,
+              "type": {
+                "text": "string"
+              },
+              "description": "需要拼接的前缀"
+            }
+          ],
+          "description": "生成全局唯一的 ID 并返回"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "generateId",
+            "module": "src/utils/generateId.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "insertAttributeToHTML",
+          "declaration": {
+            "name": "insertAttributeToHTML",
+            "module": "src/utils/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "generateId",
+          "declaration": {
+            "name": "generateId",
+            "module": "src/utils/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/insertAttributeToHTML.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "insertAttributeToHTML",
+          "parameters": [
+            {
+              "name": "attributes",
+              "type": {
+                "text": "Record<string, unknown>"
+              },
+              "description": "需要组装的 attribute 集合"
+            }
+          ],
+          "description": "根据传入的对象，组装标准的 HTML attribute 字符串",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "insertAttributeToHTML",
+            "module": "src/utils/insertAttributeToHTML.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

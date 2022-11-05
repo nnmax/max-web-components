@@ -1,4 +1,4 @@
-import type { Meta, Story } from '@storybook/web-components'
+import type { Meta } from '@storybook/web-components'
 import { action } from '@storybook/addon-actions'
 import { html } from 'lit-html'
 import ButtonDocs from './Button.mdx'
@@ -43,55 +43,36 @@ export default {
   },
 } as Meta
 
-export const Basic = (args) => {
-  return html`
-    <max-button
-      variant=${args.variant}
-      color=${args.color}
-      type=${args.type}
-      ?disabled=${args.disabled}
-      aria-label=${args.type}
-      @click=${action('click')}
-      >${args.type}</max-button
-    >
-  `
-}
+export const Collection = () => html`
+  <div style="display: flex; flex-flow: column nowrap; row-gap: 2em;">
+    <div style="display: flex; column-gap: 2em;">
+      <max-button @click=${action('button click')} aria-label="describe label" variant="contained" color="primary"
+        >Button</max-button
+      >
+      <max-button @click=${action('button click')} aria-label="describe label" variant="outlined" color="primary"
+        >Button</max-button
+      >
+      <max-button @click=${action('button click')} aria-label="describe label" variant="text" color="primary"
+        >Button</max-button
+      >
+    </div>
 
-export const Variant: Story = () => html`
-  <div style="display: flex; column-gap: 16px;">
-    <max-button variant="contained">Contained</max-button>
-    <max-button variant="outlined">Outlined</max-button>
-    <max-button variant="text">Text</max-button>
-  </div>
-`
+    <div style="display: flex; column-gap: 2em;">
+      <max-button @click=${action('button click')} aria-label="describe label" variant="contained" color="secondary"
+        >Button</max-button
+      >
+      <max-button @click=${action('button click')} aria-label="describe label" variant="outlined" color="secondary"
+        >Button</max-button
+      >
+      <max-button @click=${action('button click')} aria-label="describe label" variant="text" color="secondary"
+        >Button</max-button
+      >
+    </div>
 
-export const Color: Story = () => html`
-  <div style="display: flex; column-gap: 16px;">
-    <max-button color="primary">Primary</max-button>
-    <max-button color="secondary" variant="outlined">Secondary</max-button>
-  </div>
-`
-
-export const Type: Story = () => html`
-  <div style="display: flex; flex-flow: column; row-gap: 16px;">
-    <max-button type="button">Plain Button</max-button>
-
-    <form action="https://foo.bar">
-      <input type="text" name="foo" />
-      <max-button type="submit">Submit</max-button>
-    </form>
-
-    <form>
-      <input type="text" name="foo" />
-      <max-button type="reset">Reset</max-button>
-    </form>
-  </div>
-`
-
-export const Disabled: Story = () => html`
-  <div style="display: flex; column-gap: 16px;">
-    <max-button variant="contained" disabled>Contained</max-button>
-    <max-button variant="outlined" disabled>Outlined</max-button>
-    <max-button variant="text" disabled>Text</max-button>
+    <div style="display: flex; column-gap: 2em;">
+      <max-button aria-label="describe label" variant="contained" color="primary" disabled>Button</max-button>
+      <max-button aria-label="describe label" variant="outlined" color="primary" disabled>Button</max-button>
+      <max-button aria-label="describe label" variant="text" color="primary" disabled>Button</max-button>
+    </div>
   </div>
 `
