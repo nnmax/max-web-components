@@ -1,4 +1,4 @@
-import { expect, fixture } from '@open-wc/testing'
+import { elementUpdated, expect, fixture } from '@open-wc/testing'
 import Checkbox from '../Checkbox'
 import Ripple from '../../Ripple/Ripple'
 import '..'
@@ -43,37 +43,30 @@ describe('testing <max-checkbox />', () => {
     })
   })
 
-  it('should have get value, name and checked properties', async () => {
-    const checkbox = await fixture<Checkbox>('<max-checkbox value="foo" name="my-checkbox" checked></max-checkbox>')
-    expect(checkbox.value).to.be.eq('foo')
-    expect(checkbox.name).to.be.eq('my-checkbox')
-    expect(checkbox.checked).to.be.true
-  })
-
-  it('default value should be on', () => {
-    expect(checkbox.value).to.be.eq('on')
-  })
-
-  it('aria-checked is mixed', () => {
+  it('aria-checked is mixed', async () => {
     checkbox.toggleAttribute('indeterminate', true)
+    expect(checkbox).to.have.property('indeterminate', true)
     expect(checkbox).to.have.attribute('aria-checked', 'mixed')
-    const input = checkbox.shadowRoot.querySelector('input')
-    expect(input.indeterminate).to.be.true
+    checkbox.indeterminate = false
+    expect(checkbox).to.have.attribute('aria-checked', 'false')
   })
 
   it('aria-checked is true', () => {
     checkbox.toggleAttribute('checked', true)
+    expect(checkbox).to.have.property('checked', true)
     expect(checkbox).to.have.attribute('aria-checked', 'true')
-    const input = checkbox.shadowRoot.querySelector('input')
-    expect(input.checked).to.be.true
+    checkbox.checked = false
+    expect(checkbox).to.have.attribute('aria-checked', 'false')
   })
 
   it('disabled', () => {
     checkbox.toggleAttribute('disabled', true)
+    expect(checkbox).to.have.property('disabled', true)
     expect(checkbox).to.have.attribute('aria-disabled', 'true')
     expect(checkbox).to.have.attribute('tabindex', '-1')
-    const input = checkbox.shadowRoot.querySelector('input')
-    expect(input.disabled).to.be.true
+    checkbox.disabled = false
+    expect(checkbox).to.have.attribute('aria-disabled', 'false')
+    expect(checkbox).to.have.attribute('tabindex', '0')
   })
 
   it('role is checkbox', () => {
@@ -85,9 +78,16 @@ describe('testing <max-checkbox />', () => {
   })
 
   it('event', () => {
-    const input = checkbox.shadowRoot.querySelector('input')
-    input.click()
+    checkbox.click()
     expect(checkbox).to.have.attribute('checked')
+
+    checkbox.dispatchEvent(
+      new KeyboardEvent('keyup', {
+        key: ' ',
+      })
+    )
+
+    expect(checkbox).to.have.property('checked', false)
   })
 
   it('ripple', () => {

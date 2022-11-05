@@ -1,9 +1,14 @@
 :host {
   display: inline-flex;
   outline: none;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
 
-  --max-checkbox-indeterminate-bg: var(--max-palette-primary);
-  --max-checkbox-indeterminate-color: white;
+  --max-checkbox-border: 2px solid rgba(0, 0, 0, 0.6);
+  --max-checkbox-disabled-bg: #d1d1d1;
+  --max-checkbox-disabled-color: #ededed;
+  --max-checkbox-color: white;
 }
 
 :host([hidden]) {
@@ -32,22 +37,16 @@
   pointer-events: none;
   color: var(--max-color-disabled);
 
-  --max-checkbox-indeterminate-bg: #d1d1d1;
-  --max-checkbox-indeterminate-color: #ededed;
+  --max-checkbox-border: 2px solid var(--max-checkbox-disabled-bg);
+  --max-checkbox-bg: var(--max-checkbox-disabled-bg);
+  --max-checkbox-color: var(--max-checkbox-disabled-color);
 }
 
-label {
-  display: inline-flex;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-}
-
-label:hover > .input-wrapper {
+:host(:hover)::part(icon-wrapper) {
   background-color: var(--max-checkbox-bg-hover);
 }
 
-.input-wrapper {
+:host::part(icon-wrapper) {
   position: relative;
   display: flex;
   width: 42px;
@@ -61,34 +60,48 @@ label:hover > .input-wrapper {
   border-radius: 50%;
 }
 
-input[type='checkbox'] {
+:host::part(icon) {
   position: relative;
-  display: block;
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 0;
-  cursor: inherit;
-  accent-color: var(--max-checkbox-bg);
+  border: var(--max-checkbox-border);
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-/* --------- indeterminate --------- */
-input[type='checkbox']:indeterminate::before {
-  content: '';
-  display: block;
-  width: calc(100% - 1px);
-  height: calc(100% - 1px);
-  background-color: var(--max-checkbox-indeterminate-bg);
-  border-radius: 2px;
+/* --------- checked --------- */
+:host([checked])::part(icon) {
+  background-color: var(--max-checkbox-bg);
+  border: 0;
 }
 
-input[type='checkbox']:indeterminate::after {
+:host([checked])::part(icon)::after {
   content: '';
   position: absolute;
-  display: block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -65%) rotate(45deg);
+  width: 40%;
+  height: 70%;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+/* --------- checked --------- */
+
+/* --------- indeterminate --------- */
+:host([indeterminate])::part(icon) {
+  background-color: var(--max-checkbox-bg);
+  border: 0;
+}
+
+:host([indeterminate])::part(icon)::after {
+  content: '';
+  position: absolute;
   width: 55%;
   height: 2px;
-  background-color: var(--max-checkbox-indeterminate-color);
+  background-color: var(--max-checkbox-color);
   border: none;
   top: 50%;
   left: 50%;
