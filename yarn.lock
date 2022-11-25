@@ -9010,7 +9010,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=d11327"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
@@ -9020,7 +9020,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^2.1.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -11479,7 +11479,7 @@ __metadata:
     pinst: ^3.0.0
     prettier: 2.7.1
     rollup: ^2.79.1
-    rollup-plugin-import-assert: ^2.1.0
+    rollup-plugin-import-assert: ^2.1.3
     typescript: ^4.8.4
   languageName: unknown
   linkType: soft
@@ -13935,7 +13935,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -14016,15 +14016,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-import-assert@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "rollup-plugin-import-assert@npm:2.1.0"
+"rollup-plugin-import-assert@npm:^2.1.3":
+  version: 2.1.3
+  resolution: "rollup-plugin-import-assert@npm:2.1.3"
   dependencies:
     string-to-template-literal: ^0.2.2
   peerDependencies:
     acorn-import-assertions: ^1.7.1
     rollup: ^2.0.0
-  checksum: 7cc3a9bad8857aa855eb5ad1336725564536570e14c1406863c9abd5cf4a3d04bbe1c220e55267072e355fac55b3d77673d5f210275cfc38615dd9af80065991
+  checksum: c6b57f546cf1688073e5a7b14b973e5deb6f953e36d6a4b3337d0211fce2ed437b5ec27c0cd4665185f121169a2520835b0354fb4091a6b02c8d298434aac7cd
   languageName: node
   linkType: hard
 
@@ -15551,11 +15551,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.8.4#~builtin<compat/typescript>":
   version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=7ad353"
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 563a0ef47abae6df27a9a3ab38f75fc681f633ccf1a3502b1108e252e187787893de689220f4544aaf95a371a4eb3141e4a337deb9895de5ac3c1ca76430e5f0
+  checksum: 301459fc3eb3b1a38fe91bf96d98eb55da88a9cb17b4ef80b4d105d620f4d547ba776cc27b44cc2ef58b66eda23fe0a74142feb5e79a6fb99f54fc018a696afa
   languageName: node
   linkType: hard
 
