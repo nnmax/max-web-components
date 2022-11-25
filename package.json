@@ -22,6 +22,7 @@
     "analyze": "custom-elements-manifest analyze --config \"custom-elements-manifest.config.mjs\""
   },
   "dependencies": {
+    "@mui/material": "^5.10.10",
     "lit-html": "^2.4.0"
   },
   "devDependencies": {
