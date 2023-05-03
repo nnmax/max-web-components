@@ -2,15 +2,14 @@
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: ['@storybook/addon-a11y', '@storybook/addon-links', '@storybook/addon-essentials'],
-  framework: '@storybook/web-components',
-  core: {
-    builder: 'webpack5',
+  framework: {
+    name: '@storybook/web-components-webpack5',
+    options: {},
   },
   features: {
     babelModeV7: true,
   },
   webpackFinal: (config) => {
-    // TODO: await storybook@7 to remove
     config.module.rules = config.module.rules.map((rule) => {
       if (rule.test && rule.test.toString() === '/\\.css$/') {
         return {
@@ -18,7 +17,9 @@ module.exports = {
           sideEffects: true,
           oneOf: [
             {
-              assert: { type: 'css' },
+              assert: {
+                type: 'css',
+              },
               loader: 'css-loader',
               options: {
                 exportType: 'css-style-sheet',
@@ -38,5 +39,8 @@ module.exports = {
       return rule
     })
     return config
+  },
+  docs: {
+    autodocs: true,
   },
 }

@@ -1,5 +1,5 @@
 import styles from './style.css' assert { type: 'css' }
-import Ripple from '../Ripple/Ripple'
+import type Ripple from '../Ripple/Ripple'
 import '../Ripple'
 
 export default class TextField extends HTMLElement {

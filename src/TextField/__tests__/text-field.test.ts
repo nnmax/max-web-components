@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { expect, fixture } from '@open-wc/testing'
 import TextField from '../TextField'
 import '..'

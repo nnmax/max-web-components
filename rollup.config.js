@@ -19,5 +19,6 @@ export default defineConfig([
       importAssertionsPlugin(),
     ],
     acornInjectPlugins: [importAssertions],
+    strictDeprecations: true,
   },
 ])

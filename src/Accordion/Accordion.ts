@@ -85,6 +85,7 @@ export default class Accordion extends HTMLElement {
     const nextIndex = this.#getFocusIndex(focusedIndex, key, length)
 
     if (nextIndex >= 0 || nextIndex <= length) {
+      // TODO: fix: Uncaught TypeError: enable[nextIndex] is undefined
       enable[nextIndex].focusButton()
     }
   }
