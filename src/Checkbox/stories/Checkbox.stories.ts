@@ -1,10 +1,16 @@
 import type { Meta } from '@storybook/web-components'
 import { html } from 'lit-html'
+import CheckboxDocs from './Checkbox.mdx'
 import '../../theme/theme.css'
 import '..'
 
 export default {
   title: 'Components/Checkbox',
+  parameters: {
+    docs: {
+      page: CheckboxDocs,
+    },
+  },
   argTypes: {
     color: {
       defaultValue: 'primary',

@@ -1,4 +1,5 @@
-import { elementUpdated, expect, fixture } from '@open-wc/testing'
+/* eslint-disable @typescript-eslint/no-shadow */
+import { expect, fixture } from '@open-wc/testing'
 import Checkbox from '../Checkbox'
 import Ripple from '../../Ripple/Ripple'
 import '..'

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { elementUpdated, expect, fixture, oneEvent } from '@open-wc/testing'
 import Button from '../Button'
 import '..'

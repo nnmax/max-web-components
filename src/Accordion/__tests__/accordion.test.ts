@@ -2,7 +2,7 @@ import type { DiffOptions } from '@open-wc/testing/node_modules/@open-wc/semanti
 import { elementUpdated, expect, fixture, oneEvent } from '@open-wc/testing'
 import Accordion from '../Accordion'
 import '..'
-import AccordionPanel from '../AccordionPanel'
+import type AccordionPanel from '../AccordionPanel'
 
 const options: DiffOptions = {
   ignoreAttributes: ['aria-controls', 'id'],
