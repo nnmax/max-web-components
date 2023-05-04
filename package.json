@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn sb",
-    "build": "rollup --config rollup.config.mjs",
+    "build": "rm -rf ./es && rollup --config rollup.config.mjs",
     "build:watch": "yarn build --watch",
     "test": "web-test-runner --node-resolve",
     "eslint": "eslint . --ext .js,.ts",
@@ -43,10 +43,9 @@
     "@types/prettier": "^2.7.2",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
-    "@web/dev-server-esbuild": "~0.3.6",
-    "@web/test-runner": "~0.15.3",
+    "@web/dev-server-esbuild": "~0.4.1",
+    "@web/test-runner": "~0.16.1",
     "acorn-import-assertions": "^1.8.0",
-    "babel-loader": "^8.3.0",
     "css-loader": "^6.7.3",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
@@ -66,5 +65,8 @@
   "lint-staged": {
     "*.(j|t)s": "eslint --fix",
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
