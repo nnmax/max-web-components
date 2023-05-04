@@ -1,10 +1,10 @@
 {
-  "name": "max-web-component",
+  "name": "max-web-components",
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
-  "repository": "https://github.com/nnmax/max-web-component.git",
-  "author": "maxin <maxin@growingio.com>",
+  "repository": "https://github.com/nnmax/max-web-components.git",
+  "author": "Max <hi.max@foxmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "yarn sb",
