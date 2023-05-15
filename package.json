@@ -32,7 +32,7 @@
     "@babel/preset-typescript": "^7.21.5",
     "@nnmax/eslint-config-typescript": "^1.4.0",
     "@open-wc/testing": "^3.1.8",
-    "@rollup/plugin-typescript": "^11.1.0",
+    "@rollup/plugin-typescript": "^11.1.1",
     "@storybook/addon-a11y": "^7.0.8",
     "@storybook/addon-actions": "^7.0.9",
     "@storybook/addon-docs": "^7.0.9",
