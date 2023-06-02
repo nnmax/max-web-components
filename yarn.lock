@@ -5427,12 +5427,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-import-assertions@npm:^1.7.6, acorn-import-assertions@npm:^1.8.0":
+"acorn-import-assertions@npm:^1.7.6":
   version: 1.8.0
   resolution: "acorn-import-assertions@npm:1.8.0"
   peerDependencies:
     acorn: ^8
   checksum: 5c4cf7c850102ba7ae0eeae0deb40fb3158c8ca5ff15c0bca43b5c47e307a1de3d8ef761788f881343680ea374631ae9e9615ba8876fee5268dbe068c98bcba6
+  languageName: node
+  linkType: hard
+
+"acorn-import-assertions@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "acorn-import-assertions@npm:1.9.0"
+  peerDependencies:
+    acorn: ^8
+  checksum: 944fb2659d0845c467066bdcda2e20c05abe3aaf11972116df457ce2627628a81764d800dd55031ba19de513ee0d43bb771bc679cc0eda66dc8b4fade143bc0c
   languageName: node
   linkType: hard
 
@@ -10161,7 +10170,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.2
     "@web/dev-server-esbuild": ~0.4.1
     "@web/test-runner": ~0.16.1
-    acorn-import-assertions: ^1.8.0
+    acorn-import-assertions: ^1.9.0
     css-loader: ^6.7.3
     eslint: ^8.39.0
     eslint-config-prettier: ^8.8.0
