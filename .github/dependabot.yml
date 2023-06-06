@@ -7,13 +7,11 @@ version: 2
 updates:
   - package-ecosystem: 'npm'
     directory: '/'
-    assignees:
-      - 'nnmax'
     schedule:
       interval: 'weekly'
+    # Disable version updates for npm dependencies
+    open-pull-requests-limit: 0
   - package-ecosystem: 'github-actions'
     directory: '/'
-    assignees:
-      - 'nnmax'
     schedule:
       interval: 'monthly'
