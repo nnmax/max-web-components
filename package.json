@@ -61,7 +61,7 @@
     "storybook": "^7.0.18",
     "typescript": "^5.0.4"
   },
-  "packageManager": "yarn@3.5.1",
+  "packageManager": "yarn@3.6.1",
   "lint-staged": {
     "*.(j|t)s": "eslint --fix",
     "**/*": "prettier --write --ignore-unknown"
