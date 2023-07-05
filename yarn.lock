@@ -9346,21 +9346,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:^2.0.0, lit-html@npm:^2.2.0, lit-html@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "lit-html@npm:2.4.0"
+"lit-html@npm:^2.0.0, lit-html@npm:^2.2.0, lit-html@npm:^2.4.0, lit-html@npm:^2.7.3":
+  version: 2.7.5
+  resolution: "lit-html@npm:2.7.5"
   dependencies:
     "@types/trusted-types": ^2.0.2
-  checksum: fb2ff513a23ce35783c231d3c184103b681f62792e2fa500b17f0bbd93b1a3168153b3fd52ccaca2c25ee5bb7f4006b657fc15ae893fa5dc733774c01eda5dce
-  languageName: node
-  linkType: hard
-
-"lit-html@npm:^2.7.3":
-  version: 2.7.3
-  resolution: "lit-html@npm:2.7.3"
-  dependencies:
-    "@types/trusted-types": ^2.0.2
-  checksum: da0110aa5fc19119dc34bb0462ff41d70b458a3bbe83bee5a484c61360eeafcbaf72c84672af76163a4402dc59a210acc523503dc51e0528b556bc32ec366dd2
+  checksum: 7a54399f78c02f21ee5584fd9ff21b3edad8416df0aca22964bc5b221f0b57ba74d7bd98ad076acea2403b53b2ea87cc3eb47ba8395f371a645e3d584f2c1e49
   languageName: node
   linkType: hard
 
