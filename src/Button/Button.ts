@@ -6,7 +6,6 @@ type ButtonType = 'button' | 'submit' | 'reset'
 
 export default class Button extends HTMLElement {
   static formAssociated = true
-  static is = 'max-button'
   #internals: ElementInternals
 
   constructor() {
@@ -31,6 +30,8 @@ export default class Button extends HTMLElement {
   set type(type) {
     this.setAttribute('type', type)
   }
+
+  static is = 'max-button'
 
   get disabled() {
     return this.hasAttribute('disabled')
